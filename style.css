@@ -1,1 +1,80 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+/* Page Banner */
+.page-banner{
+    height: auto;
+    background-color: cadetblue;
+    text-align: center;
+}
+.page-title{
+    font-family: 'Caveat', 'Times New Roman', Times, serif;
+    font-size: 2em;
+    padding: 1em 2em 0;
+}
+.page-paragraph{
+    text-align: center;
+    font-size: 1em;
+    font-family: sans-serif;
+    font-weight: lighter;
+    line-height: 1.5em; 
+    padding: 2em 3em 2.5em;
+}
+
+/* Add Book form */
+.add-Books form{
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr;
+    gap: 1.5em;
+    margin: 0em 3em 3em 3em;
+}
+.add-Books form input{
+    height: 2em;
+    font-family: sans-serif;
+    font-weight: lighter;
+    font-size: 1em;
+    padding-left: 0.5em;
+}
+.add-Books form button{
+    background-color: cadetblue;
+    border: none;
+    font-size: 1em;
+}
+
+.form-paragraph{
+    text-align: center;
+    font-size: 1em;
+    font-family: sans-serif;
+    font-weight: lighter;
+    line-height: 1.5em; 
+    padding: 2em 2em 2em;
+}
+
+/* Book List */
+.book-List{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-auto-rows: 300px;
+    grid-gap: 2em;
+    grid-row-gap: 5.5em;
+    margin: 0 3em 0 3em;
+}
+.book-image{
+    background-image: url("img/book.jpg");
+    background-size: cover;
+    height: 300px;
+    width: 300px;  
+}
+.book-title{
+    margin-top: 0.8em;
+    font-family: sans-serif;
+}
+
+.book-author{
+    margin-top: 0.3em;
+    font-family: sans-serif;    
+}
 
