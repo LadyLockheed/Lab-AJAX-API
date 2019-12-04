@@ -29,10 +29,16 @@ let loginInput = document.querySelector('.login-input');
 
 loginButton.addEventListener('click', async event =>{
     console.log('login button');
-    console.log('login input', loginInput);
     ourKey = loginInput.value;
     console.log('new key', ourKey);
+    const urlView = baseUrl+"?key=" + ourKey + "&op=select";
+    const response = await fetch (urlView);
+    console.log('View book - Got response from server', response); 
+    const viewData = await response.json();
+    console.log('JSON Add book', viewData);
     
+
+
 });
   
 
@@ -45,7 +51,7 @@ let body=document.querySelector("body");
 
 
 buttonAddBook.addEventListener('click', async event =>{
-    const urlAdd = baseUrl + '?key=' + ourKey + '&op=insert&title=variabel&author=variabel';
+    const urlAdd = baseUrl + "?key=" + ourKey + "&op=insert&title=" + inputTitle.value + "&author=" + inputAuthor.value;
     const response = await fetch(urlAdd);
     console.log('Add book - Got response from server', response); 
     const data = await response.json();
@@ -60,6 +66,8 @@ buttonAddBook.addEventListener('click', async event =>{
         console.log("I else satse, det gick inte, errro!")
     }
 
+
+    //glöm ej att lägga in en riktig variabel i url strängen för att addera book
     //fixa så att login funkar och visar alla böcker man har sparat
     //gör rekursiv funktion som gör att man inte behöver klicka på add knappen flera gånger om error.
     //spara id från individuell bok att använda senare.
