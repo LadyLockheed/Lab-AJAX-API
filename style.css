@@ -13,7 +13,8 @@
 .page-title{
     font-family: 'Caveat', 'Times New Roman', Times, serif;
     font-size: 3em;
-    padding: 1em 2.2em 0em;
+    padding: 1em 1em 1em;
+    line-height: 0.9em;
 }
 .page-paragraph{
     text-align: center;
@@ -28,8 +29,7 @@
 .key{ 
     display: flex;
     justify-content: center;
-    padding: 2em;
-    padding-bottom: 3em;
+    /* padding-top: 1em; */
 }
 .key-button{
     display: block;
@@ -37,18 +37,55 @@
     border: none;
     font-size: 1.3em;
     font-family: 'Caveat', 'Times New Roman', Times, serif;
-    border-radius: 3px;
-    padding: 0.2em 2em 0.2em;
+    border-top-left-radius: 3px 3px;
+    border-top-right-radius: 3px 3px;
+    width: 10em;
+    padding: 0.2em 2em 0.2em; 
 }
 .key-frame{
+    display: flex;
+    border-bottom-left-radius: 3px 3px;
+    border-bottom-right-radius: 3px 3px;
     background-color: rgb(114, 186, 189);
     width: 100px;
     height: 50px;
-    display: inline-block;
+    width: 13em;
+    align-items: center;
+    justify-content: center;
+    font-family: sans-serif;
+    font-weight: lighter;
+   
 }
-
-
-
+.login{
+    padding-top: 2em;
+    display: flex;
+    justify-content: center;
+}
+.login1{
+    padding: 0.5em 1em 3em;
+    display: flex;
+    justify-content: center;
+}
+.login-button{
+    display: block;
+    background-color: pink;
+    border: none;
+    font-size: 1.3em;
+    font-family: 'Caveat', 'Times New Roman', Times, serif;
+    border-radius: 3px;
+    width: 10em;
+    padding: 0.2em 2em 0.2em; 
+}
+.login input{
+    height: 2em;
+    font-family: sans-serif;
+    font-weight: lighter;
+    font-size: 1em;
+    padding: 0.5em;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    width: 13em;
+}
 
 /* Add Book form */
 .add-Books {
@@ -103,6 +140,7 @@
     background-size: cover;
     height: 100%;
     width: 100%; 
+    border-radius: 3px;
 }
 .book-title{
     margin-top: 0.8em;
