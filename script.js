@@ -27,38 +27,51 @@ ourKey = data.key;
 let loginButton = document.querySelector('.login-button');
 let loginInput = document.querySelector('.login-input');
 
-loginButton.addEventListener('click', async event =>{
-    console.log('login button');
+loginButton.addEventListener('click', async event =>{//Function för login-------------------------
+   
     ourKey = loginInput.value;
-    console.log('new key', ourKey);
     const urlView = baseUrl+"?key=" + ourKey + "&op=select";
     const response = await fetch (urlView);
-    console.log('View book - Got response from server', response); 
-    const viewData = await response.json();
-    console.log('JSON Add book', viewData);
-
+    const data = await response.json();
     
-  console.log("nedan ska dt visas en massa saker");
-console.log("Här listas titel i en lista: ", viewData.data[0].title);
-console.log("Här listas titel i alla listor: ", viewData.data.title);
-
-    for (i=0; i< viewData.data.length; i++){
-
-    console.log(" Lista på datan: ", viewData.data[i]) ;//ger oss alla objekt i listan vi får från servern. viewdata=lista med objekt. Data=listorna.
-    console.log(" Lista på author: ", viewData.data[i].author);//ger oss alla authors.
     
+if (data.status === "success"){
+    for (i=0; i< data.data.length; i++){
+        console.log("inne i loopjävlen");
+        let viewAuthor= data.data[i].author;
+        console.log("Author är: ",viewAuthor);
+        let viewTitle= data.data[i].title;
+        console.log("Title är: ",viewTitle);
+        let viewUpdated= data.data[i].updated;
+        console.log("Updated är: ",viewUpdated);
+
+            createBook(viewTitle, viewAuthor, viewUpdated);
     }
-
-
+}
+else{
+    console.log("Funkade ej att hämta böcker. Här ska vi skriva kod sen.")
+}
+    
+    
 
 });
 
+
+           
+            
+
+
+
+
+
+
 //Här börjar funktionen för att hämta+skapa användarens inskrivna böcker
 
-function ViewData(){
+// function ViewData( title, author, updated){
+// createBook();
+// newDivTitle.innerText="Title: "+title
 
-
-}
+// }
 
 
   
@@ -81,7 +94,7 @@ buttonAddBook.addEventListener('click', async event =>{
     if (data.status==="success"){
         console.log("Inne i if success")
         console.log("Bokens id: ", data.id);
-        createBook();
+        createBook(inputTitle.value, inputAuthor.value);
     }
     else{
         console.log("I else satse, det gick inte, errro!")
@@ -114,29 +127,29 @@ function createNewDivImage(){
 }
 
 
-function createNewDivTitle(){
+function createNewDivTitle(title){
 
     let newDivTitle=document.createElement("div");
     newDivTitle.className="book-title";
-    newDivTitle.innerText="Title: "+inputTitle.value;
+    newDivTitle.innerText="Title: "+ title;
     return newDivTitle;
 }
 
-function createNewDivAuthor(){
+function createNewDivAuthor(author){
     
     let newDivAuthor=document.createElement("div");
     newDivAuthor.className="book-author";
-    newDivAuthor.innerText="Author: "+inputAuthor.value;
+    newDivAuthor.innerText="Author: "+ author;
     return newDivAuthor;    
 }
 
 //Den här funktionen skapar hela boken inkl alla tre element som ligger i och appendar den till book-list
-function createBook(){
+function createBook(title, author){
     let bookDiv=document.createElement("div")
     bookDiv.className="book";
     let imageElem=createNewDivImage();
-    let titleElem = createNewDivTitle();
-    let authorElem=createNewDivAuthor();
+    let titleElem = createNewDivTitle(title);
+    let authorElem=createNewDivAuthor(author);
     //här skapas alla de tre elementen som ska ligga i 
     bookDiv.appendChild(imageElem);
     bookDiv.appendChild(titleElem);
