@@ -37,31 +37,33 @@ loginButton.addEventListener('click', async event =>{
     const viewData = await response.json();
     console.log('JSON Add book', viewData);
 
-    
-  console.log("nedan ska dt visas en massa saker");
-console.log("Här listas titel i en lista: ", viewData.data[0].title);
-console.log("Här listas titel i alla listor: ", viewData.data.title);
 
-    for (let i = 0; i < viewData.data.length; i++){
-
-    console.log(" Lista på datan: ", viewData.data[i]) ;//ger oss alla objekt i listan vi får från servern. viewdata=lista med objekt. Data=listorna.
-    console.log(" Lista på author: ", viewData.data[i].author);//ger oss alla authors.
-    
+    if(viewData.status === "success"){
+        for (let i = 0; i < viewData.data.length; i++){
+            console.log(" Lista på datan: ", viewData.data[i]) ; //ger oss alla objekt i listan vi får från servern. viewdata=lista med objekt. Data=listorna.
+            console.log(" Lista på author: ", viewData.data[i].author); //ger oss alla authors.
+        }
     }
-
-
+    else{
+        console.log('Error');
+    }
+    
+// när vi clickar på login och bli succsess ska createBook anropas, 
+// ska plocka ut json objekt title, author, updated. 
+// hur ska vi koppla ihop dessa
+// funktion ligger utanför klick login, med parametrar kopplar createbook...
 
 });
+/* function viewData(title, author, updated) {
+    createBook();
+    for(){
+
+    }
+    
+} */
 
 //Här börjar funktionen för att hämta+skapa användarens inskrivna böcker
 
-function ViewData(){
-
-
-}
-
-
-  
 
 // Add book
 let buttonAddBook=document.querySelector(".add-Books-Button");
@@ -87,8 +89,8 @@ buttonAddBook.addEventListener('click', async event =>{
         console.log("I else satse, det gick inte, errro!")
     }
 
-
-    //glöm ej att lägga in en riktig variabel i url strängen för att addera book
+    
+   
     //fixa så att login funkar och visar alla böcker man har sparat
     //gör rekursiv funktion som gör att man inte behöver klicka på add knappen flera gånger om error.
     //spara id från individuell bok att använda senare.
