@@ -23,7 +23,7 @@ ourKey = data.key;
 });
 
 
-// Login in 
+// Login in /view data
 let loginButton = document.querySelector('.login-button');
 let loginInput = document.querySelector('.login-input');
 
@@ -36,10 +36,31 @@ loginButton.addEventListener('click', async event =>{
     console.log('View book - Got response from server', response); 
     const viewData = await response.json();
     console.log('JSON Add book', viewData);
+
     
+  console.log("nedan ska dt visas en massa saker");
+console.log("Här listas titel i en lista: ", viewData.data[0].title);
+console.log("Här listas titel i alla listor: ", viewData.data.title);
+
+    for (i=0; i< viewData.data.length; i++){
+
+    console.log(" Lista på datan: ", viewData.data[i]) ;//ger oss alla objekt i listan vi får från servern. viewdata=lista med objekt. Data=listorna.
+    console.log(" Lista på author: ", viewData.data[i].author);//ger oss alla authors.
+    
+    }
+
 
 
 });
+
+//Här börjar funktionen för att hämta+skapa användarens inskrivna böcker
+
+function ViewData(){
+
+
+}
+
+
   
 
 // Add book
