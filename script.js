@@ -42,7 +42,7 @@ loginButton.addEventListener('click', async event =>{
 console.log("Här listas titel i en lista: ", viewData.data[0].title);
 console.log("Här listas titel i alla listor: ", viewData.data.title);
 
-    for (i=0; i< viewData.data.length; i++){
+    for (let i = 0; i < viewData.data.length; i++){
 
     console.log(" Lista på datan: ", viewData.data[i]) ;//ger oss alla objekt i listan vi får från servern. viewdata=lista med objekt. Data=listorna.
     console.log(" Lista på author: ", viewData.data[i].author);//ger oss alla authors.
