@@ -35,46 +35,26 @@ loginButton.addEventListener('click', async event =>{//Function för login------
     const data = await response.json();
     
     
-if (data.status === "success"){
-    for (i=0; i< data.data.length; i++){
-        console.log("inne i loopjävlen");
-        let viewAuthor= data.data[i].author;
-        console.log("Author är: ",viewAuthor);
-        let viewTitle= data.data[i].title;
-        console.log("Title är: ",viewTitle);
-        let viewUpdated= data.data[i].updated;
-        console.log("Updated är: ",viewUpdated);
+    if (data.status === "success"){
+        for (i=0; i< data.data.length; i++){
+            console.log("inne i loopjävlen");
+            let viewAuthor= data.data[i].author;
+            console.log("Author är: ",viewAuthor);
+            let viewTitle= data.data[i].title;
+            console.log("Title är: ",viewTitle);
+            let viewUpdated= data.data[i].updated;
+            console.log("Updated är: ",viewUpdated);
 
-            createBook(viewTitle, viewAuthor, viewUpdated);
+                createBook(viewTitle, viewAuthor, viewUpdated);
+        }
     }
-}
-else{
-    console.log("Funkade ej att hämta böcker. Här ska vi skriva kod sen.")
-}
+    else{
+        console.log("Funkade ej att hämta böcker. Här ska vi skriva kod sen.")
+    }
     
     
-
 });
 
-
-           
-            
-
-
-
-
-
-
-//Här börjar funktionen för att hämta+skapa användarens inskrivna böcker
-
-// function ViewData( title, author, updated){
-// createBook();
-// newDivTitle.innerText="Title: "+title
-
-// }
-
-
-  
 
 // Add book
 let buttonAddBook=document.querySelector(".add-Books-Button");
