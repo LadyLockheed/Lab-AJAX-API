@@ -51,6 +51,7 @@ loginButton.addEventListener('click', async event =>{
             console.log("Updated är: ",viewUpdated);
     
 <<<<<<< HEAD
+<<<<<<< HEAD
     if (data.status === "success"){
         for (i=0; i< data.data.length; i++){
             console.log("inne i loopjävlen");
@@ -75,6 +76,9 @@ loginButton.addEventListener('click', async event =>{
 =======
                 createBook(viewTitle, viewAuthor, viewUpdated);
                        
+=======
+                createBook(viewTitle, viewAuthor, viewUpdated);             
+>>>>>>> hanna
         }
         break;
     }
@@ -125,6 +129,9 @@ buttonAddBook.addEventListener('click', async event =>{
     // behöver gå igenom båda input elementen och seda skriva ut dem på consolen
     // status: success skapa bok object (crearebook();)
     // misslyckas upp till 5 gång - skriva ut det på sidan - status: error text försök igen
+    // dolt id
+    // removeChild()
+    // modidy data
    
 });
 
