@@ -36,22 +36,20 @@ loginButton.addEventListener('click', async event =>{
   
 
 // Add book
-let addBooksButton = document.querySelector('.add-Books-Button');
-let inputTitle = document.querySelector('.input-title');
-let inputAuthor = document.querySelector('.input-author');
-
-
-addBooksButton.addEventListener('click', async event =>{
+buttonAddBook.addEventListener('click', async event =>{
     const urlAdd = baseUrl + '?key=' + ourKey + '&op=insert&title=variabel&author=variabel';
     const response = await fetch(urlAdd);
     console.log('Add book - Got response from server', response); 
     const data = await response.json();
     console.log('JSON Add book', data);
-    console.log('User input' + inputTitle.value + inputAuthor.value); 
+     
     
-    // behöver gå igenom båda input elementen och seda skriva ut dem på consolen
+
     // status: success skapa bok object (crearebook();)
     // misslyckas upp till 5 gång - skriva ut det på sidan - status: error text försök igen
+    // dolt id
+    // removeChild()
+    // modidy data
    
 });
 
