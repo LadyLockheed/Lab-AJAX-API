@@ -23,28 +23,76 @@ ourKey = data.key;
 });
 
 
-// Login in 
+// Login in /view data
 let loginButton = document.querySelector('.login-button');
 let loginInput = document.querySelector('.login-input');
 
 loginButton.addEventListener('click', async event =>{
     console.log('login button');
-    console.log('login input', loginInput);
     ourKey = loginInput.value;
     console.log('new key', ourKey);
+    const urlView = baseUrl+"?key=" + ourKey + "&op=select";
+    const response = await fetch (urlView);
+    console.log('View book - Got response from server', response); 
+    const viewData = await response.json();
+    console.log('JSON Add book', viewData);
+
+    
+  console.log("nedan ska dt visas en massa saker");
+console.log("Här listas titel i en lista: ", viewData.data[0].title);
+console.log("Här listas titel i alla listor: ", viewData.data.title);
+
+    for (let i = 0; i < viewData.data.length; i++){
+
+    console.log(" Lista på datan: ", viewData.data[i]) ;//ger oss alla objekt i listan vi får från servern. viewdata=lista med objekt. Data=listorna.
+    console.log(" Lista på author: ", viewData.data[i].author);//ger oss alla authors.
+    
+    }
+
+
+
 });
+
+//Här börjar funktionen för att hämta+skapa användarens inskrivna böcker
+
+function ViewData(){
+
+
+}
+
+
   
 
 // Add book
+let buttonAddBook=document.querySelector(".add-Books-Button");
+let bookList=document.querySelector(".book-List");
+let inputTitle=document.querySelector("#input-title");
+let inputAuthor=document.querySelector("#input-author");
+let body=document.querySelector("body");
+
+
 buttonAddBook.addEventListener('click', async event =>{
-    const urlAdd = baseUrl + '?key=' + ourKey + '&op=insert&title=variabel&author=variabel';
+    const urlAdd = baseUrl + "?key=" + ourKey + "&op=insert&title=" + inputTitle.value + "&author=" + inputAuthor.value;
     const response = await fetch(urlAdd);
     console.log('Add book - Got response from server', response); 
     const data = await response.json();
     console.log('JSON Add book', data);
-     
     
+    if (data.status==="success"){
+        console.log("Inne i if success")
+        console.log("Bokens id: ", data.id);
+        createBook();
+    }
+    else{
+        console.log("I else satse, det gick inte, errro!")
+    }
 
+
+    //glöm ej att lägga in en riktig variabel i url strängen för att addera book
+    //fixa så att login funkar och visar alla böcker man har sparat
+    //gör rekursiv funktion som gör att man inte behöver klicka på add knappen flera gånger om error.
+    //spara id från individuell bok att använda senare.
+    // behöver gå igenom båda input elementen och seda skriva ut dem på consolen
     // status: success skapa bok object (crearebook();)
     // misslyckas upp till 5 gång - skriva ut det på sidan - status: error text försök igen
     // dolt id
@@ -57,21 +105,6 @@ buttonAddBook.addEventListener('click', async event =>{
 
 //Karins kod för att lägga till ett bokobjekt-------------
 
-
-let buttonAddBook=document.querySelector(".add-Books-Button");
-let bookList=document.querySelector(".book-List");
-let inputTitle=document.querySelector("#input-title");
-let inputAuthor=document.querySelector("#input-author");
-let body=document.querySelector("body");
-
-
-
-buttonAddBook.addEventListener("click", function() {
-    console.log("Knappen i add book funkar")
-    createBook();
-
-
-})
 
 
 
@@ -117,18 +150,7 @@ function createBook(){
 }
 
 
-// function createBookList(){
-
-//     let parentToBooks=document.createElement("div");
-//     parentToBooks.className="book-List";
-//     body.appendChild(parentToBooks);
-
-    
-// }
 
 
     
-
-
-
 }); // Load
