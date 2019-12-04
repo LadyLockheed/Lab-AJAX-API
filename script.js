@@ -50,8 +50,7 @@ loginButton.addEventListener('click', async event =>{
             let viewUpdated= data.data[i].updated;
             console.log("Updated är: ",viewUpdated);
     
-                createBook(viewTitle, viewAuthor, viewUpdated);
-                       
+                createBook(viewTitle, viewAuthor, viewUpdated);             
         }
         break;
     }
