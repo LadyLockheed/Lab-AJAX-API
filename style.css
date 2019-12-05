@@ -25,6 +25,17 @@
     padding: 2em 3em 2.5em;
 }
 
+/* Fail message */
+.fail{
+    display: flex;
+    justify-content: center;
+    padding: 2em 2em 0;
+    font-family: sans-serif;
+    font-weight: lighter;
+    line-height: 1.5em; 
+    text-align: center;
+}
+
 /* Key */
 .key{ 
     display: flex;

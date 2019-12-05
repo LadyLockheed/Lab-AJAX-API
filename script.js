@@ -26,8 +26,11 @@ ourKey = data.key;
 // Login in /view data
 let loginButton = document.querySelector('.login-button');
 let loginInput = document.querySelector('.login-input');
+let fail = document.querySelector('.fail');
 
-loginButton.addEventListener('click', async event =>{
+
+//EJ KLAR funktionen faildt
+loginButton.addEventListener('click', async event => { // function med klick händelser som triggar en annan funcktion i detta fallet skapar en bok
     ourKey = loginInput.value;
     const urlView = baseUrl+ "?key=" + ourKey + "&op=select";
 
@@ -36,40 +39,49 @@ loginButton.addEventListener('click', async event =>{
     {
         const response = await fetch (urlView);
         const data = await response.json();
-    console.log('här försöker  vi för gång nummer', count);
-    count++;
+        console.log('respons från server login/view', data);
+        console.log('här försöker vi för gång nummer', count);
+        count++;
     
-    if (data.status === "success"){
+        if (data.status === "success"){
+            
+            for (i=0; i < data.data.length; i++){
+                console.log("inne i loopjävlen");
+                let viewAuthor= data.data[i].author;
+                console.log("Author är: ",viewAuthor);
+                let viewTitle= data.data[i].title;
+                console.log("Title är: ",viewTitle);
+                let viewUpdated= data.data[i].updated;
+                console.log("Updated är: ",viewUpdated);
         
-        for (i=0; i < data.data.length; i++){
-            console.log("inne i loopjävlen");
-            let viewAuthor= data.data[i].author;
-            console.log("Author är: ",viewAuthor);
-            let viewTitle= data.data[i].title;
-            console.log("Title är: ",viewTitle);
-            let viewUpdated= data.data[i].updated;
-            console.log("Updated är: ",viewUpdated);
-    
-                createBook(viewTitle, viewAuthor, viewUpdated);             
+                    createBook(viewTitle, viewAuthor, viewUpdated);             
+            }
+            break;
         }
-        break;
-    }
-    else{
-        console.log("Funkade ej att hämta böcker.")
-    } 
+        else{
+            let failMessage = data.message; 
+            console.log('här är vårt fel meddelanden: ', failMessage); 
+            
+            fail.innerHTML = "Something went wrong: " + failMessage; 
+                
 
 
+
+
+            // loop vg - alla fel på consolen ska visas på sidan
+        } 
     }
   
 
 });
+
+
+
 // Add book
 let buttonAddBook=document.querySelector(".add-Books-Button");
 let bookList=document.querySelector(".book-List");
 let inputTitle=document.querySelector("#input-title");
 let inputAuthor=document.querySelector("#input-author");
-let body=document.querySelector("body");
-
 
 buttonAddBook.addEventListener('click', async event =>{
     const urlAdd = baseUrl + "?key=" + ourKey + "&op=insert&title=" + inputTitle.value + "&author=" + inputAuthor.value;
