@@ -5,40 +5,44 @@ console.log('Script started');
 window.addEventListener('load', () => {
     console.log('Window load');
 
-    // API key
-    let keyButton = document.querySelector('.key-button');
-    let keyFrame = document.querySelector('.key-frame');
+// API key
+let keyButton = document.querySelector('.key-button');
+let keyFrame = document.querySelector('.key-frame');
 
-    keyButton.addEventListener('click', async event => {
-        console.log('Click on key-button'); // async måste vara med om await används
-        const urlKey = baseUrl + '?requestKey';
-        const response = await fetch(urlKey);
-        console.log('Key - Got response from server', response); // måste gör om det till json (inte säker på att det går, annars måste den göras om)
-        const data = await response.json(); // omvandlar json sträng till i detta fallet objekt
-        console.log('JSON key', data); 
-        console.log('key: ', data.key);
+keyButton.addEventListener('click', async event => {
+    console.log('Click on key-button'); // async måste vara med om await används
+    const urlKey = baseUrl + '?requestKey';
+    const response = await fetch(urlKey);
+    console.log('Key - Got response from server', response); // måste gör om det till json (inte säker på att det går, annars måste den göras om)
+    const data = await response.json(); // omvandlar json sträng till i detta fallet objekt
+    console.log('JSON key', data); 
+    console.log('key: ', data.key);
 
-        keyFrame.innerHTML = data.key; // nyckeln skrivs ut på konsolen
-        ourKey = data.key;
-    });
-
-  
-    // Login in /view data
-    let loginButton = document.querySelector('.login-button');
-    let loginInput = document.querySelector('.login-input');
-    let fail = document.querySelector('.fail');
+keyFrame.innerHTML = data.key; // nyckeln skrivs ut på konsolen
+ourKey = data.key;
+});
 
 
-    //EJ KLAR funktionen faildt
-    loginButton.addEventListener('click', lalaCreatebook(event, failMessage)); // function med klick händelser som      triggar en annan funcktion i detta fallet skapar en bok
-        //!Här ska lalacreatebook hända  
-      
-        //test ny funktion nedan----------------------
+// Login in /view data
+let loginButton = document.querySelector('.login-button');
+let loginInput = document.querySelector('.login-input');
+let fail = document.querySelector('.fail');
 
+loginButton.addEventListener('click', async event => { // function med klick händelser som triggar en annan funcktion i detta fallet skapar en bok
+    ourKey = loginInput.value;
+    const urlView = baseUrl+ "?key=" + ourKey + "&op=select";
+
+    let count=1; 
+    for (let i=0; i<5; i++) // när status = fail ska du göra detta fem gånger
+    {
+        const response = await fetch (urlView);
+        const data = await response.json();
+        console.log('respons från server login/view', data);
+        console.log('här försöker vi för gång nummer', count);
+        count++;
     
-    //!Detta är den nya funktionen som skapar en bok och dessutom lägger med ett felmeedelande
-    //TODO Kod för felmeddelande ska skriva, ej gjort ännu. Än så länge skapas bara en bok
-    async function lalaCreatebook (){
+    
+    
 
         ourKey = loginInput.value;
         const urlView = baseUrl+ "?key=" + ourKey + "&op=select";
@@ -52,39 +56,30 @@ window.addEventListener('load', () => {
             console.log('här försöker vi för gång nummer', count);
             count++;
         
-            if (data.status === "success"){
-                
-                for (i=0; i < data.data.length; i++){
-                    console.log("inne i loopjävlen");
-                    let viewAuthor= data.data[i].author;
-                    console.log("Author är: ",viewAuthor);
-                    let viewTitle= data.data[i].title;
-                    console.log("Title är: ",viewTitle);
-                    let viewUpdated= data.data[i].updated;
-                    console.log("Updated är: ",viewUpdated);
+                    createBook(viewTitle, viewAuthor, viewUpdated);             
+            }
+            break;
+        }
+        else{
+            let failMessage = data.message; 
+            console.log('här är vårt fel meddelanden: ', failMessage); 
+
+            let newFail = document.createElement('li');
+            newFail.className = "fail";
+            newFail.innerHTML = failMessage; 
+            fail.appendChild(newFail);
+
             
-                        createBook(viewTitle, viewAuthor, viewUpdated);             
-                }
-                break;
-            }
-            else{
-                let failMessage = data.message; 
-                console.log('här är vårt fel meddelanden: ', failMessage); 
-                
-                fail.innerHTML = "Something went wrong: " + failMessage; 
-            }
-        }            
-    
-    
-        
+        } 
+    }
+});
 
-    }//slut lalaCreatebook
-
-
+ // funktion fel meddeladen
+/* function failedToLogin(){
+   
            
-  
-
-
+}
+failedToLogin();  */
 
 
 
@@ -144,6 +139,7 @@ window.addEventListener('load', () => {
 
     function createNewDivTitle(title){
 
+<<<<<<< HEAD
         let newDivTitle=document.createElement("div");
         newDivTitle.className="book-title";
         newDivTitle.innerText="Title: "+ title;
@@ -171,6 +167,33 @@ window.addEventListener('load', () => {
         bookDiv.appendChild(authorElem);
         
         bookList.appendChild(bookDiv);
+=======
+    let newDivTitle=document.createElement("div");
+    newDivTitle.className="book-title";
+    newDivTitle.innerText="Title: " + title;
+    return newDivTitle;
+}
+
+function createNewDivAuthor(author){
+    
+    let newDivAuthor=document.createElement("div");
+    newDivAuthor.className="book-author";
+    newDivAuthor.innerText="Author: " + author;
+    return newDivAuthor;    
+}
+
+//Den här funktionen skapar hela boken inkl alla tre element som ligger i och appendar den till book-list
+function createBook(title, author){
+    let bookDiv=document.createElement("div")
+    bookDiv.className="book";
+    let imageElem=createNewDivImage();
+    let titleElem = createNewDivTitle(title);
+    let authorElem=createNewDivAuthor(author);
+    //här skapas alla de tre elementen som ska ligga i 
+    bookDiv.appendChild(imageElem);
+    bookDiv.appendChild(titleElem);
+    bookDiv.appendChild(authorElem);
+>>>>>>> hanna
     
     }
     
