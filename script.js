@@ -28,8 +28,6 @@ let loginButton = document.querySelector('.login-button');
 let loginInput = document.querySelector('.login-input');
 let fail = document.querySelector('.fail');
 
-
-//EJ KLAR funktionen faildt
 loginButton.addEventListener('click', async event => { // function med klick händelser som triggar en annan funcktion i detta fallet skapar en bok
     ourKey = loginInput.value;
     const urlView = baseUrl+ "?key=" + ourKey + "&op=select";
@@ -61,20 +59,23 @@ loginButton.addEventListener('click', async event => { // function med klick hä
         else{
             let failMessage = data.message; 
             console.log('här är vårt fel meddelanden: ', failMessage); 
+
+            let newFail = document.createElement('li');
+            newFail.className = "fail";
+            newFail.innerHTML = failMessage; 
+            fail.appendChild(newFail);
+
             
-            fail.innerHTML = "Something went wrong: " + failMessage; 
-                
-
-
-
-
-            // loop vg - alla fel på consolen ska visas på sidan
         } 
     }
-  
-
 });
 
+ // funktion fel meddeladen
+/* function failedToLogin(){
+   
+           
+}
+failedToLogin();  */
 
 
 // Add book
@@ -135,7 +136,7 @@ function createNewDivTitle(title){
 
     let newDivTitle=document.createElement("div");
     newDivTitle.className="book-title";
-    newDivTitle.innerText="Title: "+ title;
+    newDivTitle.innerText="Title: " + title;
     return newDivTitle;
 }
 
@@ -143,7 +144,7 @@ function createNewDivAuthor(author){
     
     let newDivAuthor=document.createElement("div");
     newDivAuthor.className="book-author";
-    newDivAuthor.innerText="Author: "+ author;
+    newDivAuthor.innerText="Author: " + author;
     return newDivAuthor;    
 }
 
