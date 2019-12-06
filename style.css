@@ -152,10 +152,34 @@
 .book-image{
     display: flex;
     justify-content: flex-end;
-    background-image: url("img/book.jpg");
+    background-image: url(“img/book.jpg”);
     background-size: cover;
     height: 100%;
-    width: 100%; 
+    width: 100%;
+    border-radius: 3px;
+}
+.book-delete{
+    display: inline-block;
+    background-color: cadetblue;
+    width: 30px;
+    height: 30px;
+    margin: 1em;
+    text-align: center;
+    background-image: url(“img/delete.png”);
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 3px;
+}
+.book-modify{
+    display: inline-block;
+    background-color: cadetblue;
+    width: 30px;
+    height: 30px;
+    margin: 1em 0 0 1em;
+    text-align: center;
+    background-image: url(“img/edit.png”);
+    background-repeat: no-repeat;
+    background-position: center;
     border-radius: 3px;
 }
 .book-delete{ 
