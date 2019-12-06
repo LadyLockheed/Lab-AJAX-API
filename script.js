@@ -70,14 +70,6 @@ loginButton.addEventListener('click', async event => { // function med klick hä
     }
 });
 
- // funktion fel meddeladen
-/* function failedToLogin(){
-   
-           
-}
-failedToLogin();  */
-
-
 // Add book
 let buttonAddBook=document.querySelector(".add-Books-Button");
 let bookList=document.querySelector(".book-List");
@@ -119,6 +111,22 @@ buttonAddBook.addEventListener('click', async event =>{
    
 });
 
+
+// Delete book
+let id = data.id; 
+
+
+/* Delete data
+Delete the information for a specific book in the database. Querystring parameters:
+
+op=delete
+key - an API key that identifies the request
+id - identifies what book you want to remove
+This request will output a JSON object of the following form if successful:
+
+{
+	"status": "success"
+}  */
 
 
 //Karins kod för att lägga till ett bokobjekt-------------
