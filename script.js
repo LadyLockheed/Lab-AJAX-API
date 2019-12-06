@@ -28,27 +28,15 @@ let loginButton = document.querySelector('.login-button');
 let loginInput = document.querySelector('.login-input');
 let fail = document.querySelector('.fail');
 
-loginButton.addEventListener('click', async event => { // function med klick händelser som triggar en annan funcktion i detta fallet skapar en bok
+loginButton.addEventListener('click', async event => { 
     ourKey = loginInput.value;
     const urlView = baseUrl+ "?key=" + ourKey + "&op=select";
   
     
-    //TODO Fixa så att den skriver ut alla felmeddelanden och sen tar bort dom igen
-//     console.log("typeof haschildnodes: " ,fail.hasChildNodes())
-//  if(fail.hasChildNodes()){
-//      console.log("Här är vi inne i ifsatsen där den ska ta bort li");
-//      for (let i=0; i<5; i++){
-//         fail.removeChild(fail.childNodes[0]);
-//      }
-        
-     
-    
-//  }
+
     
     
-    
-  
-    
+    let failMessageList=[];
     let count=1; 
     for (let i=0; i<5; i++) // när status = fail ska du göra detta fem gånger
     {
@@ -57,7 +45,8 @@ loginButton.addEventListener('click', async event => { // function med klick hä
         console.log('respons från server login/view', data);
         console.log('här försöker vi för gång nummer', count);
         count++;
-    
+        
+        
         if (data.status === "success"){
             
             for (i=0; i < data.data.length; i++){
@@ -74,18 +63,27 @@ loginButton.addEventListener('click', async event => { // function med klick hä
             break;
         }
         else{
-            let failMessage = data.message; 
+            //TODO 1. lägg allt detta i en funktion med parametrar till failmessage 
+            let failMessage=data.message;
             console.log('här är vårt fel meddelanden: ', failMessage); 
+            failMessageList.push(failMessage);
 
-            let newFail = document.createElement('li');
-            newFail.className = "failMessage";
-            newFail.innerHTML = failMessage; 
-            fail.appendChild(newFail);
-
-            
         } 
+    }//Loop slut
+    
+    
+   
+    //TODO 2. lägg allt detta i en funktion med parametrar till failmessage 
+    fail.innerHTML=failMessageList[0];
+
+    for (i=0; i<failMessageList.length; i++){
+        let newP=document.createElement("p")
+        newP.innerHTML=failMessageList[i];
+        fail.appendChild(newP);
     }
-});
+
+    
+});//Login button slut
 
 // Add book
 let buttonAddBook=document.querySelector(".add-Books-Button");
@@ -107,30 +105,61 @@ buttonAddBook.addEventListener('click', async event =>{
         if (data.status==="success"){
             console.log("Inne i if success")
             console.log("Bokens id: ", data.id);
-            createBook(inputTitle.value, inputAuthor.value);
+            createBook(inputTitle.value, inputAuthor.value, data.id);
+            let savedId=data.id // id
+            console.log("Vårt sparade id är: ", savedId);
+            
+
+            
             break;
         }
         else {
             console.log('Misslyckades att lägga in ny bok');
-        }        
-    }
+        }   
+        
+        
+    }//slut loop
+    
+    let deleteButton=document.querySelector(".book-delete")
+            console.log("HÄr är deletebutton: ", deleteButton)
+          
+            deleteButton.addEventListener("click",async event=>{
+                console.log('Inne i delete button');
+                const urlDelete = baseUrl + "?key=" + ourKey + "&op=delete&id=" + savedId; // skicka med id
+                const response = await fetch(urlDelete);
+                const data = await response.json();
+                console.log('Response från server när vi deletear', data);
+                console.log("klicket i deletebutton funkar");
+                deleteBook();
 
-    //glöm ej att lägga in en riktig variabel i url strängen för att addera book
-    //fixa så att login funkar och visar alla böcker man har sparat
-    //gör rekursiv funktion som gör att man inte behöver klicka på add knappen flera gånger om error.
-    //spara id från individuell bok att använda senare.
-    // behöver gå igenom båda input elementen och seda skriva ut dem på consolen
-    // status: success skapa bok object (crearebook();)
-    // misslyckas upp till 5 gång - skriva ut det på sidan - status: error text försök igen
-    // dolt id
-    // removeChild()
-    // modidy data
-   
+
+                //TODO Lägg till en loop
+                // if(data.status === 'success'){
+                //     deleteBook();
+                // }  
+                // else{
+                //     console.log('Misslyckade att ta bort bok');
+                // } 
+            }); // delete book
+        
 });
+
+
+
+
 
 
 // Delete book
 /* let id = data.id;  */
+
+
+    //detta är funktionen för delete som sedan anropas när man klickar på deletebutton
+    function deleteBook(){//!denna funktion ska anropas i delteknappeventet
+    //TODO se till att få in id i funktionen
+    // console.log("Följde id:t med hela vägen? ", id)
+    console.log("Inne i function deletebook");
+    bookList.removeChild(bookList.childNodes[0]);
+}
 
 
 /* Delete data
@@ -148,26 +177,29 @@ This request will output a JSON object of the following form if successful:
 
 //Karins kod för att lägga till ett bokobjekt-------------
 
-function createNewDivImage(){
+function createNewDivImage(id){
     
     let newDivImage=document.createElement("div");
     newDivImage.className="book-image";
-    let modifyElem=createNewDivModify();
+    let modifyElem=createNewButtonModify();
     newDivImage.appendChild(modifyElem);
-    let deleteElem=createNewDivDelete();
+    let deleteElem=createNewButtonDelete(id);
     newDivImage.appendChild(deleteElem);
     return newDivImage;
 
 }
-function createNewDivDelete(){
-    let newDivDelete=document.createElement("div");
-    newDivDelete.className="book-delete";
-    return newDivDelete
+function createNewButtonDelete(id){
+    let newButtonDelete=document.createElement("button");
+    newButtonDelete.className="book-delete";
+    let BookId=id;
+    return newButtonDelete
 }
-function createNewDivModify(){
-    let newDivModify=document.createElement("div");
-    newDivModify.className="book-modify";
-    return newDivModify
+
+
+function createNewButtonModify(){
+    let newButtonModify=document.createElement("button");
+    newButtonModify.className="book-modify";
+    return newButtonModify
 }
 
 function createNewDivTitle(title){
@@ -187,10 +219,11 @@ function createNewDivAuthor(author){
 }
 
 //Den här funktionen skapar hela boken inkl alla tre element som ligger i och appendar den till book-list
-function createBook(title, author){
+
+function createBook(title, author,id){
     let bookDiv=document.createElement("div")
     bookDiv.className="book";
-    let imageElem=createNewDivImage();
+    let imageElem=createNewDivImage(id);
     let titleElem = createNewDivTitle(title);
     let authorElem=createNewDivAuthor(author);
     //här skapas alla de tre elementen som ska ligga i 
@@ -199,7 +232,13 @@ function createBook(title, author){
     bookDiv.appendChild(authorElem);
     
     bookList.appendChild(bookDiv);
-  
+   
 }
-    
+  
+
+
+
 }); // Load
+
+
+

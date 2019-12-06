@@ -169,6 +169,7 @@
     background-repeat: no-repeat;
     background-position: center;
     border-radius: 3px;
+    border:none;
 }
 .book-modify{
     display: inline-block;
@@ -181,6 +182,7 @@
     background-repeat: no-repeat;
     background-position: center;
     border-radius: 3px;
+    border:none;
 }
 
 .book-title{
