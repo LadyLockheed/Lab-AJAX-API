@@ -31,7 +31,24 @@ let fail = document.querySelector('.fail');
 loginButton.addEventListener('click', async event => { // function med klick händelser som triggar en annan funcktion i detta fallet skapar en bok
     ourKey = loginInput.value;
     const urlView = baseUrl+ "?key=" + ourKey + "&op=select";
-
+  
+    
+    //TODO Fixa så att den skriver ut alla felmeddelanden och sen tar bort dom igen
+//     console.log("typeof haschildnodes: " ,fail.hasChildNodes())
+//  if(fail.hasChildNodes()){
+//      console.log("Här är vi inne i ifsatsen där den ska ta bort li");
+//      for (let i=0; i<5; i++){
+//         fail.removeChild(fail.childNodes[0]);
+//      }
+        
+     
+    
+//  }
+    
+    
+    
+  
+    
     let count=1; 
     for (let i=0; i<5; i++) // när status = fail ska du göra detta fem gånger
     {
@@ -61,7 +78,7 @@ loginButton.addEventListener('click', async event => { // function med klick hä
             console.log('här är vårt fel meddelanden: ', failMessage); 
 
             let newFail = document.createElement('li');
-            newFail.className = "fail";
+            newFail.className = "failMessage";
             newFail.innerHTML = failMessage; 
             fail.appendChild(newFail);
 
