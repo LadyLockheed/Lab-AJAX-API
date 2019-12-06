@@ -144,10 +144,23 @@ function createNewDivImage(){
     
     let newDivImage=document.createElement("div");
     newDivImage.className="book-image";
+    let deleteElem=createNewDivDelete();
+    newDivImage.appendChild(deleteElem);
+    let modifyElem=createNewDivModify();
+    newDivImage.appendChild(modifyElem);
     return newDivImage;
 
 }
-
+function createNewDivDelete(){
+    let newDivDelete=document.createElement("div");
+    newDivDelete.className="book-delete";
+    return newDivDelete
+}
+function createNewDivModify(){
+    let newDivModify=document.createElement("div");
+    newDivModify.className="book-modify";
+    return newDivModify
+}
 
 function createNewDivTitle(title){
 
