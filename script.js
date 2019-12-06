@@ -152,10 +152,10 @@ function createNewDivImage(){
     
     let newDivImage=document.createElement("div");
     newDivImage.className="book-image";
-    let deleteElem=createNewDivDelete();
-    newDivImage.appendChild(deleteElem);
     let modifyElem=createNewDivModify();
     newDivImage.appendChild(modifyElem);
+    let deleteElem=createNewDivDelete();
+    newDivImage.appendChild(deleteElem);
     return newDivImage;
 
 }
