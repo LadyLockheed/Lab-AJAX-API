@@ -113,7 +113,7 @@ buttonAddBook.addEventListener('click', async event =>{
 
 
 // Delete book
-let id = data.id; 
+/* let id = data.id;  */
 
 
 /* Delete data
