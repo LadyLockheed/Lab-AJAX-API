@@ -72,19 +72,21 @@ loginButton.addEventListener('click', async event => { // function med klick hä
                     createBook(viewTitle, viewAuthor, viewUpdated);             
             }
             break;
-        }
+        } 
+
         else{
             let failMessage = data.message; 
             console.log('här är vårt fel meddelanden: ', failMessage); 
-
+    
             let newFail = document.createElement('li');
             newFail.className = "failMessage";
             newFail.innerHTML = failMessage; 
             fail.appendChild(newFail);
-
-            
-        } 
     }
+   
+
+        
+    } 
 });
 
 // Add book
@@ -151,9 +153,7 @@ buttonAddBook.addEventListener('click', async event =>{
     console.log('Response från server delete', data);
    
         deleteBook();
-    
-    
-        //! JAG VILL HA BOKENS ID - HUR GÖR JAG?
+
    
 }); // slut delete 
 function deleteBook(){
