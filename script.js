@@ -139,9 +139,7 @@ buttonAddBook.addEventListener('click', async event =>{
 
            
         });
-           
-   
-        
+      
 });
 
 //detta är funktionen för delete som sedan anropas när man klickar på deletebutton
