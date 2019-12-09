@@ -4,6 +4,7 @@
     margin: 0;
 }
 
+
 /* Page Banner */
 .page-banner{
     height: auto;
@@ -41,7 +42,7 @@
 }
 .failMessage{
     text-decoration: none;
-    list-style: none;
+    list-style: none,;
     border:1px solid green;
 }
 
@@ -135,6 +136,26 @@
 .add-Books button:hover{
     background-color: rgb(114, 186, 189);
     transition: 0.6s;
+}
+
+/* nedan testas om jag kan byta färg på addbook button vid fail fem gånger */
+.addButtonFail{
+    background-color:red;
+    border: none;
+    font-size: 1.3em;
+    font-family: 'Caveat', 'Times New Roman', Times, serif;
+    padding: 0.2em;
+    border-radius: 3px;
+
+}
+
+/* nedan testas med text som dyker upp vid fail på delete book */
+.fail-messdelete{
+    color:white;
+    font-weight: bold;
+    background-color:red;
+    padding:0.5em;
+    text-align:center;
 }
 
 .form-paragraph{
