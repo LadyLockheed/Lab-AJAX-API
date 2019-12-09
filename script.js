@@ -116,7 +116,7 @@ buttonAddBook.addEventListener('click', async event =>{
    
     
           
-        deleteButton.addEventListener("click",async event=>{
+        deleteButton.addEventListener("click",async event=>{//den här ska ta bort
             console.log("klicket i deletebutton funkar");//!Den här funkar inte
             
             
@@ -151,13 +151,16 @@ buttonAddBook.addEventListener('click', async event =>{
 
 //Alla funktioner som är klara
 
-function createNewDivImage(id){
+function createNewDivImage(id, bookDiv){
     
     let newDivImage=document.createElement("div");
     newDivImage.className="book-image";
     let modifyElem=createNewButtonModify();
     newDivImage.appendChild(modifyElem);
     let deleteElem=createNewButtonDelete(id);
+    newButtonDelete.addEventListener("click", async event=>{
+        bookList.removeChild(bookDiv)
+    })
     newDivImage.appendChild(deleteElem);
     return newDivImage;
 
@@ -165,6 +168,7 @@ function createNewDivImage(id){
 function createNewButtonDelete(id){
     let newButtonDelete=document.createElement("button");
     newButtonDelete.className="book-delete";
+    
     let BookId=id;//behövs denna?
     return newButtonDelete
 }
@@ -199,7 +203,7 @@ function createBook(title, author,id){
     let idNumber=id;
     bookDiv.className="book";
     bookDiv.id=idNumber;
-    let imageElem=createNewDivImage(id);
+    let imageElem=createNewDivImage(id, bookDiv);
     let titleElem = createNewDivTitle(title);
     let authorElem=createNewDivAuthor(author);
     //här skapas alla de tre elementen som ska ligga i 
