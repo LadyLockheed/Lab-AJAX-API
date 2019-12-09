@@ -110,46 +110,54 @@ buttonAddBook.addEventListener('click', async event =>{
    
     createFail(failMessageList)//Skriver ut felmeddelanden från addBook på sidan
    
-    //Delete-book //!Ej klar, pågående arbete.
-    let deleteButton=document.querySelector(".book-delete")
-    let deleteBookId=document.getElementById("IdNumber");
+    
    
     
           
-        deleteButton.addEventListener("click",async event=>{//den här ska ta bort
-            console.log("klicket i deletebutton funkar");//!Den här funkar inte
+        
+           //Delete API
             
             
-            // const urlDelete = baseUrl + "?key=" + ourKey + "&op=delete&id=" + savedId; // skicka med id
-            // const response = await fetch(urlDelete);
-            // const data = await response.json();
-            // console.log('Response från server när vi deletear', data);
-            // console.log("Försökt få tag i ett specifikt id:",deleteBookId);
             
-            // bookList.removeChild(deleteBookId);
+           
             
-            // deleteBook();
-
+           
 
            
-        });
+        
            
    
         
 });
 
-//detta är funktionen för delete som sedan anropas när man klickar på deletebutton
-    function deleteBook(id){
-   let idNumberBook=document.querySelector("#",id)
-    
-    console.log("Inne i function deletebook");
-    bookList.removeChild(bookList.book);
-}
-
-
 
 
 //Alla funktioner som är klara
+
+async function deleteBook(id){
+
+    const urlDelete = baseUrl + "?key=" + ourKey + "&op=delete&id=" + id; // skicka med id
+    let failMessageList=[];//Listan där felmeddelanden hamnar
+    fail.innerHTML="";//tar bort allt innehåll i ul/fail, både text OCH li-tagg  
+    
+    for (let i=0; i<5; i++){
+    const response = await fetch(urlDelete);
+    const data = await response.json();
+    console.log('Response från server när vi deletear', data);
+    console.log("Statusen är: ", data.status);
+        if (data.status==="success"){
+            bookList.removeChild(bookDiv)
+            break;
+        }
+        else{
+            let failMessage=data.message;
+            failMessageList.push(failMessage)
+        }
+    }//slut for loop
+    
+    createFail(failMessageList);
+    
+}//slut deletebook
 
 function createNewDivImage(id, bookDiv){
     
@@ -158,8 +166,10 @@ function createNewDivImage(id, bookDiv){
     let modifyElem=createNewButtonModify();
     newDivImage.appendChild(modifyElem);
     let deleteElem=createNewButtonDelete(id);
-    newButtonDelete.addEventListener("click", async event=>{
-        bookList.removeChild(bookDiv)
+    deleteElem.addEventListener("click", async event=>{
+       deleteBook(id)
+       console.log("Inne i addeventlistener på delete");
+       
     })
     newDivImage.appendChild(deleteElem);
     return newDivImage;
@@ -168,6 +178,9 @@ function createNewDivImage(id, bookDiv){
 function createNewButtonDelete(id){
     let newButtonDelete=document.createElement("button");
     newButtonDelete.className="book-delete";
+    // newButtonDelete.addEventListener("click", async event=>{
+    //     bookList.removeChild(bookDiv)
+    // })
     
     let BookId=id;//behövs denna?
     return newButtonDelete
