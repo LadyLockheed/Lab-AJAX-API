@@ -17,10 +17,13 @@ keyButton.addEventListener('click', async event => {
     const data = await response.json(); // omvandlar json sträng till i detta fallet objekt
     console.log('JSON key', data); 
     console.log('key: ', data.key);
+   
 
 keyFrame.innerHTML = data.key; // nyckeln skrivs ut på konsolen
 ourKey = data.key;
 });
+
+
 
 
 // Login in /view data
@@ -34,9 +37,9 @@ loginButton.addEventListener('click', async event => {
   
     
 
+    let failMessageList=[];//Listan där felmeddelanden hamnar
+    fail.innerHTML="";//tar bort allt innehåll i ul/fail, både text OCH li-tagg
     
-    
-    let failMessageList=[];
     let count=1; 
     for (let i=0; i<5; i++) // när status = fail ska du göra detta fem gånger
     {
@@ -63,27 +66,19 @@ loginButton.addEventListener('click', async event => {
             break;
         }
         else{
-            //TODO 1. lägg allt detta i en funktion med parametrar till failmessage 
             let failMessage=data.message;
-            console.log('här är vårt fel meddelanden: ', failMessage); 
             failMessageList.push(failMessage);
-
         } 
     }//Loop slut
     
     
-   
-    //TODO 2. lägg allt detta i en funktion med parametrar till failmessage 
-    fail.innerHTML=failMessageList[0];
-
-    for (i=0; i<failMessageList.length; i++){
-        let newP=document.createElement("p")
-        newP.innerHTML=failMessageList[i];
-        fail.appendChild(newP);
-    }
+   createFail(failMessageList)
+  
 
     
 });//Login button slut
+
+
 
 // Add book
 let buttonAddBook=document.querySelector(".add-Books-Button");
@@ -93,6 +88,9 @@ let inputAuthor=document.querySelector("#input-author");
 
 buttonAddBook.addEventListener('click', async event =>{
     const urlAdd = baseUrl + "?key=" + ourKey + "&op=insert&title=" + inputTitle.value + "&author=" + inputAuthor.value;
+
+    let failMessageList=[];//Listan där felmeddelanden hamnar
+    fail.innerHTML="";//tar bort allt innehåll i ul/fail, både text OCH li-tagg
     
     let count1=1;
     for(let i=0; i<5; i++){
@@ -109,73 +107,55 @@ buttonAddBook.addEventListener('click', async event =>{
             let savedId=data.id // id
             console.log("Vårt sparade id är: ", savedId);
             
-
-            
             break;
         }
         else {
             console.log('Misslyckades att lägga in ny bok');
+            let failMessage=data.message;
+            failMessageList.push(failMessage);
         }   
         
         
     }//slut loop
-    
+   
+    createFail(failMessageList)//Skriver ut felmeddelanden från addBook på sidan
+   
+    //Delete-book //!Ej klar, pågående arbete.
     let deleteButton=document.querySelector(".book-delete")
-            console.log("HÄr är deletebutton: ", deleteButton)
+    console.log("HÄr är deletebutton: ", deleteButton)
           
-            deleteButton.addEventListener("click",async event=>{
-                console.log('Inne i delete button');
-                const urlDelete = baseUrl + "?key=" + ourKey + "&op=delete&id=" + savedId; // skicka med id
-                const response = await fetch(urlDelete);
-                const data = await response.json();
-                console.log('Response från server när vi deletear', data);
-                console.log("klicket i deletebutton funkar");
-                deleteBook();
+        deleteButton.addEventListener("click",async event=>{
+            console.log('Inne i delete button');
+            const urlDelete = baseUrl + "?key=" + ourKey + "&op=delete&id=" + savedId; // skicka med id
+            const response = await fetch(urlDelete);
+            const data = await response.json();
+            console.log('Response från server när vi deletear', data);
+            console.log("klicket i deletebutton funkar");
+            
+            bookList.removeChild(bookList.childNodes[0])
+            
+            // deleteBook();
 
 
-                //TODO Lägg till en loop
-                // if(data.status === 'success'){
-                //     deleteBook();
-                // }  
-                // else{
-                //     console.log('Misslyckade att ta bort bok');
-                // } 
-            }); // delete book
+           
+        });
+           
+   
         
 });
 
-
-
-
-
-
-// Delete book
-/* let id = data.id;  */
-
-
-    //detta är funktionen för delete som sedan anropas när man klickar på deletebutton
-    function deleteBook(){//!denna funktion ska anropas i delteknappeventet
-    //TODO se till att få in id i funktionen
-    // console.log("Följde id:t med hela vägen? ", id)
+//detta är funktionen för delete som sedan anropas när man klickar på deletebutton
+    function deleteBook(id){
+   let idNumberBook=document.querySelector("#",id)
+    
     console.log("Inne i function deletebook");
     bookList.removeChild(bookList.childNodes[0]);
 }
 
 
-/* Delete data
-Delete the information for a specific book in the database. Querystring parameters:
-
-op=delete
-key - an API key that identifies the request
-id - identifies what book you want to remove
-This request will output a JSON object of the following form if successful:
-
-{
-	"status": "success"
-}  */
 
 
-//Karins kod för att lägga till ett bokobjekt-------------
+//Alla funktioner som är klara
 
 function createNewDivImage(id){
     
@@ -222,7 +202,9 @@ function createNewDivAuthor(author){
 
 function createBook(title, author,id){
     let bookDiv=document.createElement("div")
+    let idNumber=id;
     bookDiv.className="book";
+    bookDiv.id=idNumber;
     let imageElem=createNewDivImage(id);
     let titleElem = createNewDivTitle(title);
     let authorElem=createNewDivAuthor(author);
@@ -234,6 +216,16 @@ function createBook(title, author,id){
     bookList.appendChild(bookDiv);
    
 }
+
+//Den här funktionen skapar li med felmeddelande
+function createFail(failMessage){
+    for (i=0; i<failMessage.length; i++){
+        let newP=document.createElement("li");
+        newP.className = "failMessage";
+        newP.innerHTML=failMessage[i];
+        fail.appendChild(newP);
+    }
+   }//slut createFail function
   
 
 
