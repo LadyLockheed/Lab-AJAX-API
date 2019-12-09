@@ -10,17 +10,13 @@ let keyButton = document.querySelector('.key-button');
 let keyFrame = document.querySelector('.key-frame');
 
 keyButton.addEventListener('click', async event => {
-    console.log('Click on key-button'); // async måste vara med om await används
+   
     const urlKey = baseUrl + '?requestKey';
     const response = await fetch(urlKey);
-    console.log('Key - Got response from server', response); // måste gör om det till json (inte säker på att det går, annars måste den göras om)
     const data = await response.json(); // omvandlar json sträng till i detta fallet objekt
-    console.log('JSON key', data); 
-    console.log('key: ', data.key);
-   
-
-keyFrame.innerHTML = data.key; // nyckeln skrivs ut på konsolen
-ourKey = data.key;
+    
+    keyFrame.innerHTML = data.key; // nyckeln skrivs ut på konsolen
+    ourKey = data.key;
 });
 
 
@@ -32,36 +28,30 @@ let loginInput = document.querySelector('.login-input');
 let fail = document.querySelector('.fail');
 
 loginButton.addEventListener('click', async event => { 
+    
     ourKey = loginInput.value;
     const urlView = baseUrl+ "?key=" + ourKey + "&op=select";
   
-    
-
     let failMessageList=[];//Listan där felmeddelanden hamnar
     fail.innerHTML="";//tar bort allt innehåll i ul/fail, både text OCH li-tagg
     
-    let count=1; 
+   
     for (let i=0; i<5; i++) // när status = fail ska du göra detta fem gånger
     {
         const response = await fetch (urlView);
         const data = await response.json();
-        console.log('respons från server login/view', data);
-        console.log('här försöker vi för gång nummer', count);
-        count++;
-        
         
         if (data.status === "success"){
             
             for (i=0; i < data.data.length; i++){
-                console.log("inne i loopjävlen");
+               
                 let viewAuthor= data.data[i].author;
-                console.log("Author är: ",viewAuthor);
                 let viewTitle= data.data[i].title;
-                console.log("Title är: ",viewTitle);
                 let viewUpdated= data.data[i].updated;
-                console.log("Updated är: ",viewUpdated);
-        
-                    createBook(viewTitle, viewAuthor, viewUpdated);             
+                let viewId=data.data[i].id;
+                console.log("Inne i loginfunktionen, detta är id:t :", viewId);
+               
+                createBook(viewTitle, viewAuthor, viewUpdated);             
             }
             break;
         }
@@ -122,17 +112,21 @@ buttonAddBook.addEventListener('click', async event =>{
    
     //Delete-book //!Ej klar, pågående arbete.
     let deleteButton=document.querySelector(".book-delete")
-    console.log("HÄr är deletebutton: ", deleteButton)
+    let deleteBookId=document.getElementById("IdNumber");
+   
+    
           
         deleteButton.addEventListener("click",async event=>{
-            console.log('Inne i delete button');
-            const urlDelete = baseUrl + "?key=" + ourKey + "&op=delete&id=" + savedId; // skicka med id
-            const response = await fetch(urlDelete);
-            const data = await response.json();
-            console.log('Response från server när vi deletear', data);
-            console.log("klicket i deletebutton funkar");
+            console.log("klicket i deletebutton funkar");//!Den här funkar inte
             
-            bookList.removeChild(bookList.childNodes[0])
+            
+            // const urlDelete = baseUrl + "?key=" + ourKey + "&op=delete&id=" + savedId; // skicka med id
+            // const response = await fetch(urlDelete);
+            // const data = await response.json();
+            // console.log('Response från server när vi deletear', data);
+            // console.log("Försökt få tag i ett specifikt id:",deleteBookId);
+            
+            // bookList.removeChild(deleteBookId);
             
             // deleteBook();
 
@@ -149,7 +143,7 @@ buttonAddBook.addEventListener('click', async event =>{
    let idNumberBook=document.querySelector("#",id)
     
     console.log("Inne i function deletebook");
-    bookList.removeChild(bookList.childNodes[0]);
+    bookList.removeChild(bookList.book);
 }
 
 
@@ -171,7 +165,7 @@ function createNewDivImage(id){
 function createNewButtonDelete(id){
     let newButtonDelete=document.createElement("button");
     newButtonDelete.className="book-delete";
-    let BookId=id;
+    let BookId=id;//behövs denna?
     return newButtonDelete
 }
 
