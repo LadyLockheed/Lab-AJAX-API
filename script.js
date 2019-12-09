@@ -107,12 +107,21 @@ buttonAddBook.addEventListener('click', async event =>{
         if (data.status==="success"){
             console.log("Inne i if success")
             console.log("Bokens id: ", data.id);
-            createBook(inputTitle.value, inputAuthor.value);
+            createBook(inputTitle.value, inputAuthor.value, data.id);
+
+            let deleteButton=document.querySelector(".book-delete")
+        console.log("HÄr är deletebutton: ", deleteButton)
+        
+        deleteButton.addEventListener("click", event=>{
+        console.log("klicket i deletebutton funkar");
+        deleteBook();
+    })
             break;
         }
         else {
             console.log('Misslyckades att lägga in ny bok');
-        }        
+        }    
+        
     }
 
     //glöm ej att lägga in en riktig variabel i url strängen för att addera book
@@ -130,7 +139,34 @@ buttonAddBook.addEventListener('click', async event =>{
 
 
 // Delete book
-/* let id = data.id;  */
+
+    let deleteElement = document.querySelector('.book-delete');
+    console.log('Delete knappen', deleteElement);
+
+    deleteElement.addEventListener('click', async event => { 
+    console.log('Delete klick');
+    const urlDelete = baseUrl + "?key=" + ourKey + "&op=delete&id=+ idVariabel"; // skicka med id
+    const response = await fetch(urlDelete);
+    const data = await response.json();
+    console.log('Response från server delete', data);
+   
+        deleteBook();
+    
+    
+        //! JAG VILL HA BOKENS ID - HUR GÖR JAG?
+   
+}); // slut delete 
+function deleteBook(){
+    bookList.removeChild(bookList.childNodes[1]);
+    
+}  
+
+
+
+
+
+
+
 
 
 /* Delete data
@@ -143,8 +179,8 @@ This request will output a JSON object of the following form if successful:
 
 {
 	"status": "success"
-}  */
-
+} 
+ */
 
 //Karins kod för att lägga till ett bokobjekt-------------
 
@@ -160,12 +196,12 @@ function createNewDivImage(){
 
 }
 function createNewDivDelete(){
-    let newDivDelete=document.createElement("div");
+    let newDivDelete=document.createElement("button");
     newDivDelete.className="book-delete";
     return newDivDelete
 }
 function createNewDivModify(){
-    let newDivModify=document.createElement("div");
+    let newDivModify=document.createElement("button");
     newDivModify.className="book-modify";
     return newDivModify
 }
@@ -187,7 +223,7 @@ function createNewDivAuthor(author){
 }
 
 //Den här funktionen skapar hela boken inkl alla tre element som ligger i och appendar den till book-list
-function createBook(title, author){
+function createBook(title, author, id){
     let bookDiv=document.createElement("div")
     bookDiv.className="book";
     let imageElem=createNewDivImage();
@@ -199,6 +235,8 @@ function createBook(title, author){
     bookDiv.appendChild(authorElem);
     
     bookList.appendChild(bookDiv);
+    
+  
   
 }
     
