@@ -107,7 +107,7 @@ buttonAddBook.addEventListener('click', async event =>{
         }   
         
         
-    }//slut loop
+    } //slut loop
    
     createFail(failMessageList)//Skriver ut felmeddelanden från addBook på sidan
    
@@ -116,9 +116,9 @@ buttonAddBook.addEventListener('click', async event =>{
     let deleteBookId=document.getElementById("IdNumber");
    
     
-          
+       /*    
         deleteButton.addEventListener("click",async event=>{//den här ska ta bort
-            console.log("klicket i deletebutton funkar");//!Den här funkar inte
+            console.log("klicket i deletebutton funkar");//!Den här funkar inte */
             
             
             // const urlDelete = baseUrl + "?key=" + ourKey + "&op=delete&id=" + savedId; // skicka med id
@@ -130,44 +130,12 @@ buttonAddBook.addEventListener('click', async event =>{
             // bookList.removeChild(deleteBookId);
             
             // deleteBook();
-
-<<<<<<< HEAD
-// Delete book
-
-    let deleteElement = document.querySelector('.book-delete');
-    console.log('Delete knappen', deleteElement);
-
-    deleteElement.addEventListener('click', async event => { 
-    console.log('Delete klick');
-    const urlDelete = baseUrl + "?key=" + ourKey + "&op=delete&id=+ idVariabel"; // skicka med id
-    const response = await fetch(urlDelete);
-    const data = await response.json();
-    console.log('Response från server delete', data);
-   
-        deleteBook();
-
-   
-}); // slut delete 
-function deleteBook(){
-    bookList.removeChild(bookList.childNodes[1]);
-    
-}  
-
-
-
-
-
-
-
-=======
->>>>>>> karindevelop
-
-           
+ 
         });
            
    
         
-});
+
 
 //detta är funktionen för delete som sedan anropas när man klickar på deletebutton
     function deleteBook(id){
@@ -178,14 +146,6 @@ function deleteBook(){
 }
 
 
-<<<<<<< HEAD
-{
-	"status": "success"
-} 
- */
-=======
-
->>>>>>> karindevelop
 
 //Alla funktioner som är klara
 
@@ -193,33 +153,16 @@ function createNewDivImage(id, bookDiv){
     
     let newDivImage=document.createElement("div");
     newDivImage.className="book-image";
-<<<<<<< HEAD
-    let modifyElem=createNewDivModify();
-    newDivImage.appendChild(modifyElem);
-    let deleteElem=createNewDivDelete();
-=======
     let modifyElem=createNewButtonModify();
     newDivImage.appendChild(modifyElem);
     let deleteElem=createNewButtonDelete(id);
     newButtonDelete.addEventListener("click", async event=>{
         bookList.removeChild(bookDiv)
     })
->>>>>>> karindevelop
     newDivImage.appendChild(deleteElem);
     return newDivImage;
+};
 
-}
-<<<<<<< HEAD
-function createNewDivDelete(){
-    let newDivDelete=document.createElement("button");
-    newDivDelete.className="book-delete";
-    return newDivDelete
-}
-function createNewDivModify(){
-    let newDivModify=document.createElement("button");
-    newDivModify.className="book-modify";
-    return newDivModify
-=======
 function createNewButtonDelete(id){
     let newButtonDelete=document.createElement("button");
     newButtonDelete.className="book-delete";
@@ -233,7 +176,6 @@ function createNewButtonModify(){
     let newButtonModify=document.createElement("button");
     newButtonModify.className="book-modify";
     return newButtonModify
->>>>>>> karindevelop
 }
 
 function createNewDivTitle(title){
@@ -253,12 +195,8 @@ function createNewDivAuthor(author){
 }
 
 //Den här funktionen skapar hela boken inkl alla tre element som ligger i och appendar den till book-list
-<<<<<<< HEAD
-function createBook(title, author, id){
-=======
 
 function createBook(title, author,id){
->>>>>>> karindevelop
     let bookDiv=document.createElement("div")
     let idNumber=id;
     bookDiv.className="book";
@@ -272,14 +210,6 @@ function createBook(title, author,id){
     bookDiv.appendChild(authorElem);
     
     bookList.appendChild(bookDiv);
-<<<<<<< HEAD
-    
-  
-  
-}
-    
-}); // Load
-=======
    
 }
 
@@ -300,4 +230,3 @@ function createFail(failMessage){
 
 
 
->>>>>>> karindevelop
