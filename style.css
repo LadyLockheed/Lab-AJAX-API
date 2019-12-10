@@ -109,24 +109,6 @@
 }
 
 
-
-/* Fail message */
-.fail{
-    text-align: center;
-    font-family: sans-serif;
-    font-weight: lighter;
-    line-height: 1.5em; 
-    text-align: center;
-    height: auto;
-    border: 2px solid pink;
-    padding: 1em;
-}
-.failMessage{
-    padding: 0.3em;
-    text-decoration: none;
-    list-style: none;
-}
-
 /* Add Book form */
 .add-Books {
     display: grid;
@@ -159,14 +141,7 @@
 
 
 
-/* nedan testas med text som dyker upp vid fail på delete book */
-.fail-messdelete{
-    color:white;
-    font-weight: bold;
-    background-color:red;
-    padding:0.5em;
-    text-align:center;
-}
+
 
 .form-paragraph{
     text-align: center;
@@ -226,6 +201,13 @@
     margin-top: 0.8em;
     font-family: sans-serif;
 }
+.book-title:focus, .book-author:focus{
+    border:2px solid cadetblue;
+    padding:0.2em;
+
+}
+
+
 
 .book-author{
     margin-top: 0.3em;
