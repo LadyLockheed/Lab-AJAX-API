@@ -114,7 +114,7 @@ buttonAddBook.addEventListener('click', async event =>{
             
             if(failCount===5){//om det misslyckas helt med att lägga in en ny bok händer detta
                 buttonAddBook.innerHTML="Failed, try again";
-                buttonAddBook.className="addButtonFail";
+              
             }
             
         }   
@@ -170,7 +170,7 @@ async function deleteBook(id,divImage){
             countFail++
             if(countFail===5){
                 let newFailMess=document.createElement("p");
-                newFailMess.innerhtml="Failed to delete";
+               
                 newFailMess.className="fail-messdelete";
                 newFailMess.innerHTML="Failed to delete."
                 divImage.appendChild(newFailMess);
