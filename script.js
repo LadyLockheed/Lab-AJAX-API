@@ -152,11 +152,8 @@ async function deleteBook(id,divImage){
             failMessageList.push(failMessage)
             countFail++
             if(countFail===5){
-                let newFailMess=document.createElement("p");
-               
-                newFailMess.className="fail-messdelete";
-                newFailMess.innerHTML="Failed to delete."
-                divImage.appendChild(newFailMess);
+                newDivFail.className="fail-messdelete";
+                newDivFail.innerHTML="Failed to remove book";
             }
             
 
@@ -173,6 +170,8 @@ function createNewDivImage(id, bookDiv){
     newDivImage.className="book-image";
     let modifyElem=createNewButtonModify();
     newDivImage.appendChild(modifyElem);
+    let newDivFail=document.createElement("div");
+    newDivImage.appendChild(newDivFail);
     let deleteElem=createNewButtonDelete(bookDiv);
     deleteElem.addEventListener("click", async event=>{
        deleteBook(id,newDivImage)
