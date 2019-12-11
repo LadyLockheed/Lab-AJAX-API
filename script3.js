@@ -228,34 +228,35 @@ function createFail(failMessage){
 
    
    //Delete book
-   async function deleteBook(id){
+   async function deleteBook(id, newImageDiv){
 
     const urlDelete = baseUrl + "?key=" + ourKey + "&op=delete&id=" + id; // skicka med id
     let failMessageList=[];//Listan där felmeddelanden hamnar
     fail.innerHTML="";//tar bort allt innehåll i ul/fail, både text OCH li-tagg  
     countFail=0;
+    
     for (let i=0; i<5; i++){
-    const response = await fetch(urlDelete);
-    const data = await response.json();
-    console.log('Response från server när vi deletear', data);
-    console.log("Statusen är: ", data.status);
-    let bookDiv=document.querySelector(".book")
-        if (data.status==="success"){
-            bookList.removeChild(bookDiv)
-            break;
-        }
-        else{
-            let failMessage=data.message;
-            failMessageList.push(failMessage)
-            countFail++
-            
-            //! if(countFail===5){
-            //     newDivFail.className="fail-messdelete";
-            //     newDivFail.innerHTML="Failed to remove book";
-            // }
-            
+        const response = await fetch(urlDelete);
+        const data = await response.json();
+        console.log('Response från server när vi deletear', data);
+        console.log("Statusen är: ", data.status);
+        let bookDiv=document.querySelector(".book")
+            if (data.status==="success"){
+                bookList.removeChild(bookDiv)
+                break;
+            }
+            else{
+                let failMessage=data.message;
+                failMessageList.push(failMessage)
+                countFail++
+                
+                if(countFail===5){
+                    //TODO fixa så att det kommer ett felmeddelande om alla fem försök failar.
+                   
+                }
+                
 
-        }
+            }
     }//slut for loop
     
     createFail(failMessageList);
@@ -326,7 +327,7 @@ function createBook(title, author,id){
     let newButtonDelete=document.createElement("button");
     newButtonDelete.className="book-delete";
     newButtonDelete.addEventListener("click", async event=>{
-       deleteBook(id);
+       deleteBook(id, newDivImage);
        
     })
 
