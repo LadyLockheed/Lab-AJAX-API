@@ -7,7 +7,6 @@
 
 /* Page Banner */
 .page-banner{
-    height: auto;
     background-color: cadetblue;
     text-align: center;
 }
@@ -15,12 +14,9 @@
     font-family: 'Caveat', 'Times New Roman', Times, serif;
     font-size: 3em;
     padding: 1em 1em 1em;
-    line-height: 0.9em;
 }
-
-/* Grid */
 .container{
-    margin-top: 1em;
+    margin-top: 1.5em;
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     gap: 1.5em;
@@ -30,13 +26,12 @@
     grid-column: 1/5;
 }
 .container-key{
-
     background-color: cadetblue;
-    grid-column: 5/6;
+    grid-column: 5/8;
 }
 .container-fail{
     background-color: cadetblue;
-    grid-column: 6/11;
+    grid-column: 8/11;
 
 }
 
@@ -54,7 +49,6 @@
 .key{
    padding: 2em 2em 0em;
 }
-
 .key-button{
     background-color: pink;
     border: none;
@@ -62,7 +56,7 @@
     font-family: 'Caveat', 'Times New Roman', Times, serif;
     border-top-left-radius: 3px 3px;
     border-top-right-radius: 3px 3px;
-    width: 10em;
+    width: 100%;
     padding: 0.2em 2em 0.2em; 
 }
 .key-frame{
@@ -73,7 +67,7 @@
     border-bottom-right-radius: 3px 3px;
     background-color: rgb(114, 186, 189);
     height: 3em;
-    width: 13em;
+    width: 100%;
     font-family: sans-serif;
     font-weight: lighter;
 }
@@ -87,37 +81,42 @@
     margin-bottom: 0.7em;
     height: 2em;
     font-family: sans-serif;
+    text-align: center;
     font-weight: lighter;
     font-size: 1em;
     padding: 0.5em;
     border: 1px solid lightgray;
     border-radius: 3px;
-    width: 13em;
+    width: 100%;
 }
 .login-button{
-
     background-color: pink;
     border: none;
     font-size: 1.3em;
     font-family: 'Caveat', 'Times New Roman', Times, serif;
     border-radius: 3px;
-    width: 10em;
+    width: 100%;
     padding: 0.2em 2em 0.2em; 
 }
 
 /* Fail message */
 .fail{
-    margin: 2em 1em 2em 2em;
+    margin: 0em 2em 2em 2em;
     font-family: sans-serif;
     font-weight: lighter;
     line-height: 1.5em; 
     text-align: center;
-    width: 25em;
-    height:12em;
-    line-height: 1.8em;
-   
+    line-height: 1.8em; 
+}
+.hereIsWhatWentWrong{
+    text-align: center;
+    padding: 2em;
+    font-size: 1em;
+    font-family: sans-serif;
+    font-weight: lighter;
 }
 .failMessage{
+    text-align: center;
     text-decoration: none;
     list-style: none;
     
@@ -127,7 +126,7 @@
     display: grid;
     grid-template-columns: 2fr 2fr 1fr;
     gap: 1.5em;
-    margin: 2em 3em 3em 3em;
+    margin: 2em 2em 3em 2em;
 }
 .add-Books input{
     height: 2em;
@@ -160,7 +159,7 @@
     grid-auto-rows: 300px;
     grid-gap: 3em;
     grid-row-gap: 8em;
-    margin: 0 3em 0 3em;
+    margin: 0 2em 0 2em;
 }
 .book-image{
     display: flex;
@@ -215,9 +214,6 @@
 .book-title:focus, .book-author:focus{ /*tog bort padding för save knappen flyttade sig när de blev blur*/
     border:2px solid cadetblue;
 }
-
-
-
 .book-author{
     margin-top: 0.3em;
     font-family: sans-serif;    
@@ -227,8 +223,18 @@ footer{
 }
 
 /* Media */
-@media (max-width: 600px)
-{
+@media (max-width: 850px){
+    .container-paragraph{
+        grid-column: 1/11;
+    }
+    .container-key{
+        grid-column: 1/5;
+    }
+    .container-fail{
+        grid-column: 5/11;
+    }
+}
+@media (max-width: 580px){
     .page-paragraph{
         text-align: center;
         font-size: 1em;
@@ -241,7 +247,7 @@ footer{
         display: grid;
         grid-template-columns: 1fr;
         gap: 1.5em;
-        margin: 0 2em 2em 2em;
+        margin: 2em 2em 2em 2em;
     }
     .add-Books input{
        border: 1px solid lightgray;
@@ -252,9 +258,23 @@ footer{
 
    .book-List{
         grid-template-columns: 1fr;
-        margin: 0 2em 2em 2em;
+        margin: 0em 2em 2em 2em;
         grid-gap: 2em;
         grid-row-gap: 8em;
    }
-   
+    .login input{
+       font-size: 0.8em;
+       text-align: center;
+    }
+}
+@media (max-width: 500px){
+    .container-paragraph{
+        grid-column: 1/11;
+    }
+    .container-key{
+        grid-column: 1/11;
+    }
+    .container-fail{
+        grid-column: 1/11;
+    }
 }
