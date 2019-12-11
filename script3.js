@@ -151,7 +151,7 @@ buttonAddBook.addEventListener('click', async event =>{
 
 
 // Modify book
-async function modifyBook(title, author, id, button, parent)
+async function modifyBook(title, author, id, saveButton, parent, modifyButton)
 {
     const urlModify = baseUrl + "?key=" + ourKey + "&op=update&id=" + id + "&title=" + title + "&author=" + author;
 
@@ -171,7 +171,8 @@ async function modifyBook(title, author, id, button, parent)
             if (data.status==="success"){
 
                 console.log('inne i if success');
-                parent.removeChild(button);
+                parent.removeChild(saveButton);
+                modifyButton.disabled=false;
  
                 break;
             }
@@ -182,7 +183,7 @@ async function modifyBook(title, author, id, button, parent)
                 failCount++;
                 
                 if(failCount===5){//om det misslyckas helt med att lägga in en ny bok händer detta
-                    button.innerHTML="Failed, try again";
+                    saveButton.innerHTML="Failed, try again";
                   
                 } //slut if failcount sats
             }  //slut else 
@@ -247,7 +248,7 @@ function createFail(failMessage){
             let failMessage=data.message;
             failMessageList.push(failMessage)
             countFail++
-            //! Detta ändras när allt annat är klart
+            
             //! if(countFail===5){
             //     newDivFail.className="fail-messdelete";
             //     newDivFail.innerHTML="Failed to remove book";
@@ -274,12 +275,12 @@ function createBook(title, author,id){
     //Skapar Title elementet
     let newDivTitle=document.createElement("div")
     newDivTitle.className="book-title";
-    newDivTitle.innerText="Title: " + title;
+    newDivTitle.innerText=title;
 
     //SKapar author element
     let newDivAuthor=document.createElement("div");
     newDivAuthor.className="book-author";
-    newDivAuthor.innerText="Author: " + author;
+    newDivAuthor.innerText=author;
 
     //skapar image
     let newDivImage=document.createElement("div");
@@ -288,21 +289,28 @@ function createBook(title, author,id){
     //skapar modify button
     let newButtonModify=document.createElement("button");
     newButtonModify.className="book-modify";
-   newButtonModify.addEventListener("click", async event=>{
-   
-    let saveButton = document.createElement('button');
-    saveButton.className = 'saveButton';
-    saveButton.innerHTML = "Save";
+    newButtonModify.addEventListener("click", async event=>{
     
-    saveButton.addEventListener('click', event =>{
-        let changedTitle=newDivTitle.innerHTML;
-        let changedAuthor=newDivAuthor.innerHTML;
-        modifyBook(changedTitle, changedAuthor, id, saveButton, bookDiv);
-        console.log('click savebutton');
+        newButtonModify.disabled=true;
+    
+        //Savebutton skapas här efter man tryckt på modifyButton
+        let saveButton = document.createElement('button');
+        saveButton.className = 'saveButton';
+        saveButton.innerHTML = "Save";
+    
+        saveButton.addEventListener('click', event =>{
+            let changedTitle=newDivTitle.innerHTML;
+            let changedAuthor=newDivAuthor.innerHTML;
+            modifyBook(changedTitle, changedAuthor, id, saveButton, bookDiv,newButtonModify);
+            console.log('click savebutton');
+            newDivTitle.contentEditable="false";
+            newDivAuthor.contentEditable="false";
 
-    });
-    bookDiv.appendChild(saveButton);
-    })
+        });//slut saveButton addeventlistener
+    
+        bookDiv.appendChild(saveButton);
+    })//slut newbuttonModify adeventlistener
+
     //skapar focus på titel och författare när klickar på modify
     newButtonModify.addEventListener("focus", event=>{
   
