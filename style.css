@@ -59,7 +59,7 @@
    padding: 2em 2em 0em;
 }
 .key-button{
-    background-color: pink;
+    background-color: lightsalmon;
     border: none;
     font-size: 1.3em;
     font-family: 'Caveat', 'Times New Roman', Times, serif;
@@ -98,7 +98,7 @@
     width: 100%;
 }
 .login-button{
-    background-color: pink;
+    background-color: lightsalmon;
     border: none;
     font-size: 1.3em;
     font-family: 'Caveat', 'Times New Roman', Times, serif;
@@ -220,7 +220,7 @@
     border: none;
 }
 .saveButton{
-    background-color: cadetblue;
+    background-color: lightsalmon;
     border: none;
     font-size: 1.3em;
     font-family: 'Caveat', 'Times New Roman', Times, serif;

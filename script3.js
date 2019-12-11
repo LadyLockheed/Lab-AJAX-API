@@ -105,6 +105,8 @@ buttonAddBook.addEventListener('click', async event =>{
             let savedId=data.id 
             buttonAddBook.innerHTML="Add book";
             console.log("Vårt sparade id är: ", savedId);
+            inputTitle.value = "";
+            inputAuthor.value = "";
             
             break;
         }
