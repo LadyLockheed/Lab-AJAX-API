@@ -105,7 +105,7 @@ buttonAddBook.addEventListener('click', async event =>{
             let savedId=data.id 
             buttonAddBook.innerHTML="Add book";
             console.log("Vårt sparade id är: ", savedId);
-            
+
             break;
         }
         else {
@@ -196,7 +196,7 @@ function createFail(failMessage){
 
    
    //Delete book
-   async function deleteBook(id, deleteButton){
+   async function deleteBook(id, deleteButton, divBook){
 
     const urlDelete = baseUrl + "?key=" + ourKey + "&op=delete&id=" + id; // skicka med id
     let failMessageList=[];//Listan där felmeddelanden hamnar
@@ -210,7 +210,7 @@ function createFail(failMessage){
         console.log("Statusen är: ", data.status);
         let bookDiv=document.querySelector(".book")
             if (data.status==="success"){
-                bookList.removeChild(bookDiv)
+                bookList.removeChild(divBook)
                 break;
             }
             else{
@@ -294,7 +294,7 @@ function createBook(title, author,id){
     let newButtonDelete=document.createElement("button");
     newButtonDelete.className="book-delete";
     newButtonDelete.addEventListener("click", async event=>{
-       deleteBook(id, newButtonDelete);
+       deleteBook(id, newButtonDelete,bookDiv);
        
     })
 
