@@ -1,4 +1,4 @@
-let ourKey = '8pLR2'; // Huvud API nyckel
+let ourKey = '8pLR2'; // api måste alltid ha något av typ av key
 const baseUrl = 'https://www.forverkliga.se/JavaScript/api/crud.php';
 
 
@@ -13,11 +13,13 @@ keyButton.addEventListener('click', async event => {
    
     const urlKey = baseUrl + '?requestKey';
     const response = await fetch(urlKey);
-    const data = await response.json(); 
+    const data = await response.json(); // omvandlar json sträng till i detta fallet objekt
     
-    keyFrame.innerHTML = data.key; 
+    keyFrame.innerHTML = data.key; // nyckeln skrivs ut på konsolen
     ourKey = data.key;
 });
+
+
 
 
 // Login in /view data
@@ -30,11 +32,11 @@ loginButton.addEventListener('click', async event => {
     ourKey = loginInput.value;
     const urlView = baseUrl+ "?key=" + ourKey + "&op=select";
   
-    let failMessageList=[]; // Listan där felmeddelanden hamnar
-    fail.innerHTML=""; // Tar bort allt innehåll i ul/fail, både text OCH li-tagg
+    let failMessageList=[];//Listan där felmeddelanden hamnar
+    fail.innerHTML="";//tar bort allt innehåll i ul/fail, både text OCH li-tagg
     
     let failCount=0;
-    for (let i=0; i<5; i++) // När status = fail ska du göra detta fem gånger
+    for (let i=0; i<5; i++) // när status = fail ska du göra detta fem gånger
     {
         const response = await fetch (urlView);
         const data = await response.json();
@@ -60,15 +62,18 @@ loginButton.addEventListener('click', async event => {
             failMessageList.push(failMessage);
             failCount++;
             
-            if(failCount===5){ // Om det misslyckas helt med att lägga in en ny bok händer detta
+            if(failCount===5){//om det misslyckas helt med att lägga in en ny bok händer detta
                 loginButton.innerHTML="Failed, try again";
                 
             }
         } 
-    }
+    }//Loop slut
+    
+    
    createFail(failMessageList)
    
-});
+});// Login button slut
+
 
 
 // Add book
@@ -80,8 +85,8 @@ let inputAuthor=document.querySelector("#input-author");
 buttonAddBook.addEventListener('click', async event =>{
     const urlAdd = baseUrl + "?key=" + ourKey + "&op=insert&title=" + inputTitle.value + "&author=" + inputAuthor.value;
 
-    let failMessageList=[]; 
-    fail.innerHTML=""; 
+    let failMessageList=[];//Listan där felmeddelanden hamnar
+    fail.innerHTML="";//tar bort allt innehåll i ul/fail, både text OCH li-tagg
     
     let count1=1;
     let failCount=0;
@@ -100,9 +105,7 @@ buttonAddBook.addEventListener('click', async event =>{
             let savedId=data.id 
             buttonAddBook.innerHTML="Add book";
             console.log("Vårt sparade id är: ", savedId);
-            inputTitle.value = "";
-            inputAuthor.value = "";
-            
+
             break;
         }
         else {
@@ -111,10 +114,11 @@ buttonAddBook.addEventListener('click', async event =>{
             failMessageList.push(failMessage);
             failCount++;
             
-            if(failCount===5){ // Om det misslyckas helt med att lägga in en ny bok händer detta
+            if(failCount===5){ // om det misslyckas helt med att lägga in en ny bok händer detta
                 buttonAddBook.innerHTML="Failed, try again";
               
-            } 
+            }
+            
         }   
         
         
@@ -125,6 +129,19 @@ buttonAddBook.addEventListener('click', async event =>{
     
 });
 
+// Modify book - save button
+async function modifyBook(){
+ /*   const urlModify = baseUrl + '?key=' + ourKey + '&op=update&id=' + id + '&title=' + newTitle.value + '&author=' + newAuthor.value;  */
+
+    // create input
+    // create button ok/save
+    //remove child title/author
+    //append child
+
+
+    console.log('I modify funktionen', inputAuthor.value, inputTitle.value);
+    
+}
 
 // Modify book
 async function modifyBook(title, author, id, saveButton, parent, modifyButton)
@@ -246,41 +263,42 @@ function createBook(title, author,id){
     
         newButtonModify.disabled=true;
     
-        // Savebutton skapas här efter man tryckt på modifyButton
+        //Savebutton skapas här efter man tryckt på modifyButton
         let saveButton = document.createElement('button');
         saveButton.className = 'saveButton';
         saveButton.innerHTML = "Save";
     
         saveButton.addEventListener('click', event =>{
-            let changedTitle = newDivTitle.innerHTML;
-            let changedAuthor = newDivAuthor.innerHTML;
+            let changedTitle=newDivTitle.innerHTML;
+            let changedAuthor=newDivAuthor.innerHTML;
             modifyBook(changedTitle, changedAuthor, id, saveButton, bookDiv,newButtonModify);
             console.log('click savebutton');
             newDivTitle.contentEditable="false";
             newDivAuthor.contentEditable="false";
 
-        }); // Slut saveButton addeventlistener
+        });//slut saveButton addeventlistener
     
         bookDiv.appendChild(saveButton);
-    });
+    })//slut newbuttonModify adeventlistener
 
-    // Skapar focus på titel och författare när klickar på modify
+    //skapar focus på titel och författare när klickar på modify
     newButtonModify.addEventListener("focus", event=>{
   
         newDivTitle.contentEditable="true";
         newDivAuthor.contentEditable="true";
-        newDivTitle.focus();  
-    });
-
-    // Skapar deletebutton med addeventlistner
-    let newButtonDelete = document.createElement("button");
-    newButtonDelete.className = "book-delete";
-    newButtonDelete.addEventListener("click", async event=>{
-       deleteBook(id, newButtonDelete);
+        newDivTitle.focus();
        
-    });
+    })
 
-    // Alla olika element läggs till på sidan
+    //skapar deletebutton med addeventlistner
+    let newButtonDelete=document.createElement("button");
+    newButtonDelete.className="book-delete";
+    newButtonDelete.addEventListener("click", async event=>{
+       deleteBook(id, newButtonDelete,bookDiv);
+       
+    })
+
+    //Alla olika delar läggs ihop
     newDivImage.appendChild(newButtonModify);
     newDivImage.appendChild(newButtonDelete);
     bookDiv.appendChild(newDivImage);
@@ -289,6 +307,10 @@ function createBook(title, author,id){
     bookList.appendChild(bookDiv);
 
 }
+
+  
+
+
 
 }); // Load
 
