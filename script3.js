@@ -196,7 +196,7 @@ function createFail(failMessage){
 
    
    //Delete book
-   async function deleteBook(id, newImageDiv){
+   async function deleteBook(id, deleteButton){
 
     const urlDelete = baseUrl + "?key=" + ourKey + "&op=delete&id=" + id; // skicka med id
     let failMessageList=[];//Listan där felmeddelanden hamnar
@@ -220,6 +220,8 @@ function createFail(failMessage){
                 
                 if(countFail===5){
                     //TODO fixa så att det kommer ett felmeddelande om alla fem försök failar.
+                   deleteButton.className="book-delete-fail";
+                   deleteButton.innerHTML="Try again!"
                    
                 }
                 
@@ -282,19 +284,17 @@ function createBook(title, author,id){
     //skapar focus på titel och författare när klickar på modify
     newButtonModify.addEventListener("focus", event=>{
   
-       
         newDivTitle.contentEditable="true";
         newDivAuthor.contentEditable="true";
         newDivTitle.focus();
        
-        
     })
 
     //skapar deletebutton med addeventlistner
     let newButtonDelete=document.createElement("button");
     newButtonDelete.className="book-delete";
     newButtonDelete.addEventListener("click", async event=>{
-       deleteBook(id, newDivImage);
+       deleteBook(id, newButtonDelete);
        
     })
 
