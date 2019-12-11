@@ -181,9 +181,9 @@ function createFail(failMessage){
    //Delete book
    async function deleteBook(id, deleteButton, divBook){
 
-    const urlDelete = baseUrl + "?key=" + ourKey + "&op=delete&id=" + id; // skicka med id
-    let failMessageList=[];//Listan där felmeddelanden hamnar
-    fail.innerHTML="";//tar bort allt innehåll i ul/fail, både text OCH li-tagg  
+    const urlDelete = baseUrl + "?key=" + ourKey + "&op=delete&id=" + id; 
+    let failMessageList=[]; 
+    fail.innerHTML="";   
     countFail=0;
     
     for (let i=0; i<5; i++){
@@ -202,7 +202,6 @@ function createFail(failMessage){
                 countFail++
                 
                 if(countFail===5){
-                    //TODO fixa så att det kommer ett felmeddelande om alla fem försök failar.
                    deleteButton.className="book-delete-fail";
                    deleteButton.innerHTML="Try again!"
                    
@@ -210,7 +209,7 @@ function createFail(failMessage){
                 
 
             }
-    }//slut for loop
+    }
     
     createFail(failMessageList);
     
@@ -254,7 +253,7 @@ function createBook(title, author,id){
         saveButton.addEventListener('click', event =>{
             let changedTitle = newDivTitle.innerHTML;
             let changedAuthor = newDivAuthor.innerHTML;
-            modifyBook(changedTitle, changedAuthor, id, saveButton, bookDiv,newButtonModify);
+            modifyBook(changedTitle, changedAuthor, id, saveButton, bookDiv, newButtonModify);
             console.log('click savebutton');
             newDivTitle.contentEditable="false";
             newDivAuthor.contentEditable="false";
@@ -276,7 +275,7 @@ function createBook(title, author,id){
     let newButtonDelete = document.createElement("button");
     newButtonDelete.className = "book-delete";
     newButtonDelete.addEventListener("click", async event=>{
-       deleteBook(id, newButtonDelete);
+       deleteBook(id, newButtonDelete, bookDiv);
        
     });
 
