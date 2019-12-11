@@ -148,10 +148,8 @@ async function modifyBook(title, author, id, button, parent)
 {
     const urlModify = baseUrl + "?key=" + ourKey + "&op=update&id=" + id + "&title=" + title + "&author=" + author;
 
-  
-
-        let failMessageList=[]
-        fail.innerHTML=""
+        let failMessageList=[];
+        fail.innerHTML="";
         let failCount=0;
         
         for(let i=0; i<5; i++){
@@ -201,7 +199,7 @@ async function deleteBook(id){
 
 const urlDelete = baseUrl + "?key=" + ourKey + "&op=delete&id=" + id; // skicka med id
 let failMessageList=[]; //Listan där felmeddelanden hamnar
-fail.innerHTML = "";š //tar bort allt innehåll i ul/fail, både text OCH li-tagg  
+fail.innerHTML = ""; //tar bort allt innehåll i ul/fail, både text OCH li-tagg  
 countFail=0;
 for (let i=0; i<5; i++){
 const response = await fetch(urlDelete);
@@ -275,7 +273,7 @@ function createBook(title, author,id){
     // Skapar focus på titel när klickar på modify knapp
     newButtonModify.addEventListener("focus", event=>{
   
-        
+       
         newDivTitle.contentEditable="true";
         newDivAuthor.contentEditable="true";
         newDivTitle.focus();
