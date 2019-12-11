@@ -153,7 +153,7 @@ async function modifyBook(title, author, id, saveButton, parent, modifyButton)
                 failMessageList.push(failMessage);
                 failCount++;
                 
-                if(failCount===5){//om det misslyckas helt med att lägga in en ny bok händer detta
+                if(failCount===5){
                     saveButton.innerHTML="Failed, try again";
                   
                 } 
