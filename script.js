@@ -42,18 +42,16 @@ loginButton.addEventListener('click', async event => {
         const data = await response.json();
         
         if (data.status === "success"){
-            loginButton.innerHTML="Welcome!";   
+            loginButton.innerHTML="Welcome!";
             loginButton.disabled="disabled";
-
             for (i=0; i < data.data.length; i++){
                
                 let viewAuthor= data.data[i].author;
                 let viewTitle= data.data[i].title;
                 let viewId=data.data[i].id;
                 console.log("Inne i loginfunktionen, detta är id:t :", viewId);
-                
-                createBook(viewTitle, viewAuthor, viewId); 
-                        
+               
+                createBook(viewTitle, viewAuthor, viewId);             
             }
             break;
         } 
@@ -139,12 +137,6 @@ async function modifyBook(id, newDivTitle, newDivAuthor, newDivFail){ // title, 
 
 
 
-// när man klickar på knappen då ska vi remove div, createEle input och sen append input value
-// create input
-// create button ok/save
-//remove child title/author
-//append child
-
 
 
 
@@ -189,26 +181,23 @@ async function deleteBook(id,divImage){
     
 }//slut deletebook
 
-// TODO function makeDiv(className, content)
-// TODO book object insterad of many params
-// function updateAfterModify
-function createNewDivImage(id, bookDiv, title, author, newTitleDiv, newAuthorDiv, updateAfterModify){
+function createNewDivImage(id, bookDiv, title, author){
     
     let newDivImage=document.createElement("div");
     newDivImage.className="book-image";
-    let modifyElem=createNewButtonModify(title, author,newTitleDiv, newAuthorDiv);
-    modifyElem.addEventListener('click', () => {
-        // TODO: skicka request efter att vi hämtat nya värden från inpts
-        // om request lyckas:
-        updateAfterModify(bookFromAPI);
-    })
-    newDivImage.appendChild(modifyElem);
     let newDivFail=document.createElement("div");
     newDivImage.appendChild(newDivFail);
-    
+    let modifyElem=createNewButtonModify(title, author);
+    modifyElem.addEventListener('click', event =>{
+        console.log("Klick i modify knappen");
+        modifyBook(id, newDivFail);
+    });
+    newDivImage.appendChild(modifyElem);
+
+
     let deleteElem=createNewButtonDelete(bookDiv);
     deleteElem.addEventListener("click", async event=>{
-       deleteBook(id, newDivFail)
+       deleteBook(id,newDivImage)
        console.log("Inne i addeventlistener på delete");
        
     })
@@ -219,14 +208,19 @@ function createNewDivImage(id, bookDiv, title, author, newTitleDiv, newAuthorDiv
 function createNewButtonDelete(id){
     let newButtonDelete=document.createElement("button");
     newButtonDelete.className="book-delete";
+    // newButtonDelete.addEventListener("click", async event=>{
+    //     bookList.removeChild(bookDiv)
+    // })
+    
+    let BookId=id;//behövs denna?
     return newButtonDelete
 }
 
 
-function createNewButtonModify(title, author,newDivTitle){
+function createNewButtonModify(title, author){
     let newButtonModify=document.createElement("button");
     newButtonModify.className="book-modify";
-    console.log("i createnewbuttonmodify, detta är vår newdivtitle: ",newDivTitle)
+    console.log('vår title och autor; ', title, author);
     return newButtonModify
 }
 
@@ -253,14 +247,9 @@ function createBook(title, author,id){
     let idNumber=id;
     bookDiv.className="book";
     bookDiv.id=idNumber;
+    let imageElem=createNewDivImage(id, bookDiv, title, author);
     let titleElem = createNewDivTitle(title);
     let authorElem=createNewDivAuthor(author);
-    let imageElem=createNewDivImage(id, bookDiv, title, author,titleElem, updateAfterModify);
-
-    function updateAfterModify(newBook) {
-        titleElem.innerHTML = 'racoon';
-    }
-    
     //här skapas alla de tre elementen som ska ligga i 
     bookDiv.appendChild(imageElem);
     bookDiv.appendChild(titleElem);

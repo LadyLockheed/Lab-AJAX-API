@@ -71,10 +71,8 @@ loginButton.addEventListener('click', async event => {
     
     
    createFail(failMessageList)
-  
-
-    
-});//Login button slut
+   
+});// Login button slut
 
 
 
@@ -116,7 +114,7 @@ buttonAddBook.addEventListener('click', async event =>{
             failMessageList.push(failMessage);
             failCount++;
             
-            if(failCount===5){//om det misslyckas helt med att lägga in en ny bok händer detta
+            if(failCount===5){ // om det misslyckas helt med att lägga in en ny bok händer detta
                 buttonAddBook.innerHTML="Failed, try again";
               
             }
@@ -126,39 +124,32 @@ buttonAddBook.addEventListener('click', async event =>{
         
     }//slut loop
    
-    createFail(failMessageList)//Skriver ut felmeddelanden från addBook på sidan
+    createFail(failMessageList) // Skriver ut felmeddelanden från addBook på sidan
    
     
 });
 
-
-
-
-
-// *Alla funktioner nedan--------------------------
-
-
 // Modify book - save button
-// async function getNewTitleAuthor (newTitleDiv, newAuthorDiv, id){
+async function modifyBook(){
+ /*   const urlModify = baseUrl + '?key=' + ourKey + '&op=update&id=' + id + '&title=' + newTitle.value + '&author=' + newAuthor.value;  */
+
+    // create input
+    // create button ok/save
+    //remove child title/author
+    //append child
+
+
+    console.log('I modify funktionen', inputAuthor.value, inputTitle.value);
     
-//     let changedTitle=newTitleDiv.innerHTML;
-//     let changedAuthor=newAuthorDiv.innerHTML;
-//    console.log("DEtta är vår ändrade titel: ", changedTitle);
-//    console.log("DEtta är vår ändrade titel: ", changedAuthor);
-   
-// }
-
-
+}
 
 // Modify book
 async function modifyBook(title, author, id, saveButton, parent, modifyButton)
 {
     const urlModify = baseUrl + "?key=" + ourKey + "&op=update&id=" + id + "&title=" + title + "&author=" + author;
 
-  
-
-        let failMessageList=[]
-        fail.innerHTML=""
+        let failMessageList=[];
+        fail.innerHTML="";
         let failCount=0;
         
         for(let i=0; i<5; i++){
@@ -193,30 +184,7 @@ async function modifyBook(title, author, id, saveButton, parent, modifyButton)
 
 };
     
-
-
-
-
-
-
-
-
-
-
-
-
-// när man klickar på knappen då ska vi remove div, createEle input och sen append input value
-// create input
-// create button ok/save
-//remove child title/author
-//append child
-
-
-
-
-
-
-//Fail message
+// Fail message
 function createFail(failMessage){
     for (i=0; i<failMessage.length; i++){
         let newP=document.createElement("li");
@@ -224,46 +192,45 @@ function createFail(failMessage){
         newP.innerHTML=failMessage[i];
         fail.appendChild(newP);
     }
-   }//slut createFail function
+} 
 
    
-   //Delete book
-   async function deleteBook(id){
+// Delete book
+async function deleteBook(id){
 
-    const urlDelete = baseUrl + "?key=" + ourKey + "&op=delete&id=" + id; // skicka med id
-    let failMessageList=[];//Listan där felmeddelanden hamnar
-    fail.innerHTML="";//tar bort allt innehåll i ul/fail, både text OCH li-tagg  
-    countFail=0;
-    for (let i=0; i<5; i++){
-    const response = await fetch(urlDelete);
-    const data = await response.json();
-    console.log('Response från server när vi deletear', data);
-    console.log("Statusen är: ", data.status);
-    let bookDiv=document.querySelector(".book")
-        if (data.status==="success"){
-            bookList.removeChild(bookDiv)
-            break;
-        }
-        else{
-            let failMessage=data.message;
-            failMessageList.push(failMessage)
-            countFail++
-            
-            //! if(countFail===5){
-            //     newDivFail.className="fail-messdelete";
-            //     newDivFail.innerHTML="Failed to remove book";
-            // }
-            
+const urlDelete = baseUrl + "?key=" + ourKey + "&op=delete&id=" + id; // skicka med id
+let failMessageList=[]; //Listan där felmeddelanden hamnar
+fail.innerHTML = ""; //tar bort allt innehåll i ul/fail, både text OCH li-tagg  
+countFail=0;
+for (let i=0; i<5; i++){
+const response = await fetch(urlDelete);
+const data = await response.json();
+console.log('Response från server när vi deletear', data);
+console.log("Statusen är: ", data.status);
+let bookDiv=document.querySelector(".book")
+    if (data.status==="success"){
+        bookList.removeChild(bookDiv)
+        break;
+    }
+    else{
+        let failMessage=data.message;
+        failMessageList.push(failMessage)
+        countFail++
+        //! Detta ändras när allt annat är klart
+        //! if(countFail===5){
+        //     newDivFail.className="fail-messdelete";
+        //     newDivFail.innerHTML="Failed to remove book";
+        // }
+        
 
         }
-    }//slut for loop
+    }
     
     createFail(failMessageList);
     
-}//slut deletebook
+}
 
 //CreateBook
-
 function createBook(title, author,id){
    
     //Skapar parent/book
@@ -314,7 +281,7 @@ function createBook(title, author,id){
     //skapar focus på titel och författare när klickar på modify
     newButtonModify.addEventListener("focus", event=>{
   
-        
+       
         newDivTitle.contentEditable="true";
         newDivAuthor.contentEditable="true";
         newDivTitle.focus();

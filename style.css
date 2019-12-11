@@ -17,43 +17,44 @@
     padding: 1em 1em 1em;
     line-height: 0.9em;
 }
-.page-paragraph{
-    text-align: center;
+
+/* Grid */
+.container{
+    margin-top: 1em;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 1.5em;
+}
+.container-paragraph{
+    background-color: cadetblue;
+    grid-column: 1/5;
+}
+.container-key{
+
+    background-color: cadetblue;
+    grid-column: 5/6;
+}
+.container-fail{
+    background-color: cadetblue;
+    grid-column: 6/11;
+
+}
+
+/* Paragraph */
+.form-paragraph{
+   text-align: center;
     font-size: 1em;
     font-family: sans-serif;
     font-weight: lighter;
     line-height: 1.5em; 
-    padding: 2em 3em 2.5em;
-}
-
-/* Fail message */
-.fail{
-    justify-content: center;
-    padding: 2em 2em 0;
-    font-family: sans-serif;
-    font-weight: lighter;
-    line-height: 1.5em; 
-    text-align: center;
-    width:20em;
-    height:20em;
-    border:1px solid pink;
-   
-}
-.failMessage{
-    text-decoration: none;
-    list-style: none;
-    
+    padding: 2em 3em 2em;
 }
 
 /* Key */
-.key{ 
-    justify-content: center;
+.key{
+   padding: 2em 2em 0em;
 }
-.key1{ 
-    display: flex;
-    justify-content: center;
-    padding-bottom: 2em;
-}
+
 .key-button{
     background-color: pink;
     border: none;
@@ -66,29 +67,24 @@
 }
 .key-frame{
     display: flex;
+    justify-content: center;
+    align-items: center;
     border-bottom-left-radius: 3px 3px;
     border-bottom-right-radius: 3px 3px;
     background-color: rgb(114, 186, 189);
     height: 3em;
     width: 13em;
-    align-items: center;
-    justify-content: center;
     font-family: sans-serif;
     font-weight: lighter;
-   
 }
 
 /* Login */ 
 .login{ 
-    display: inline-block;
-    justify-content: center;  
-}
-.login1{
-    padding: 0.5em 2em 0em;
-    display: flex;
-    justify-content: center;
+    display: inline-block; 
+    padding: 2em 2em 2em;
 }
 .login input{
+    margin-bottom: 0.7em;
     height: 2em;
     font-family: sans-serif;
     font-weight: lighter;
@@ -99,6 +95,7 @@
     width: 13em;
 }
 .login-button{
+
     background-color: pink;
     border: none;
     font-size: 1.3em;
@@ -108,13 +105,29 @@
     padding: 0.2em 2em 0.2em; 
 }
 
-
+/* Fail message */
+.fail{
+    margin: 2em 1em 2em 2em;
+    font-family: sans-serif;
+    font-weight: lighter;
+    line-height: 1.5em; 
+    text-align: center;
+    width: 25em;
+    height:12em;
+    line-height: 1.8em;
+   
+}
+.failMessage{
+    text-decoration: none;
+    list-style: none;
+    
+}
 /* Add Book form */
 .add-Books {
     display: grid;
     grid-template-columns: 2fr 2fr 1fr;
     gap: 1.5em;
-    margin: 0em 3em 3em 3em;
+    margin: 2em 3em 3em 3em;
 }
 .add-Books input{
     height: 2em;
@@ -140,25 +153,13 @@
 }
 
 
-
-
-
-.form-paragraph{
-    text-align: center;
-    font-size: 1em;
-    font-family: sans-serif;
-    font-weight: lighter;
-    line-height: 1.5em; 
-    padding: 2em 3em 2em;
-}
-
 /* Book List */
 .book-List{
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     grid-auto-rows: 300px;
     grid-gap: 3em;
-    grid-row-gap: 5.5em;
+    grid-row-gap: 8em;
     margin: 0 3em 0 3em;
 }
 .book-image{
@@ -196,15 +197,23 @@
     border-radius: 3px;
     border: none;
 }
+.saveButton{
+    background-color: cadetblue;
+    border: none;
+    font-size: 1.3em;
+    font-family: 'Caveat', 'Times New Roman', Times, serif;
+    padding: 0.2em;
+    border-radius: 3px;
+    width: 100%;
+    margin-top: 0.5em;  
+}
 
 .book-title{
     margin-top: 0.8em;
     font-family: sans-serif;
 }
-.book-title:focus, .book-author:focus{
+.book-title:focus, .book-author:focus{ /*tog bort padding för save knappen flyttade sig när de blev blur*/
     border:2px solid cadetblue;
-    padding:0.2em;
-
 }
 
 
@@ -214,7 +223,7 @@
     font-family: sans-serif;    
 }
 footer{
-    margin: 5em;
+    margin: 8em;
 }
 
 /* Media */
@@ -245,6 +254,7 @@ footer{
         grid-template-columns: 1fr;
         margin: 0 2em 2em 2em;
         grid-gap: 2em;
-        grid-row-gap: 5.5em;
+        grid-row-gap: 8em;
    }
+   
 }
