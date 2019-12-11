@@ -1,6 +1,6 @@
 let ourKey = '8pLR2'; // api måste alltid ha något av typ av key
 const baseUrl = 'https://www.forverkliga.se/JavaScript/api/crud.php';
-console.log('Script started');
+
 
 window.addEventListener('load', () => {
     console.log('Window load');
@@ -22,7 +22,7 @@ keyButton.addEventListener('click', async event => {
 
 
 
-// Login in/ View data
+// Login in /view data
 let loginButton = document.querySelector('.login-button');
 let loginInput = document.querySelector('.login-input');
 let fail = document.querySelector('.fail');
@@ -42,20 +42,21 @@ loginButton.addEventListener('click', async event => {
         const data = await response.json();
         
         if (data.status === "success"){
-            loginButton.innerHTML="Welcome!";
+            loginButton.innerHTML="Welcome!";   
             loginButton.disabled="disabled";
+
             for (i=0; i < data.data.length; i++){
                
                 let viewAuthor= data.data[i].author;
                 let viewTitle= data.data[i].title;
                 let viewId=data.data[i].id;
                 console.log("Inne i loginfunktionen, detta är id:t :", viewId);
-               
-                createBook(viewTitle, viewAuthor, viewId);             
+                
+                createBook(viewTitle, viewAuthor, viewId); 
+                        
             }
             break;
-        } 
-
+        }
         else{
             let failMessage=data.message;
             failMessageList.push(failMessage);
@@ -70,10 +71,8 @@ loginButton.addEventListener('click', async event => {
     
     
    createFail(failMessageList)
-  
-
-    
-});//Login button slut
+   
+});// Login button slut
 
 
 
@@ -104,8 +103,9 @@ buttonAddBook.addEventListener('click', async event =>{
             console.log("Bokens id: ", data.id);
             createBook(inputTitle.value, inputAuthor.value, data.id);
             let savedId=data.id 
+            buttonAddBook.innerHTML="Add book";
             console.log("Vårt sparade id är: ", savedId);
-            
+
             break;
         }
         else {
@@ -114,7 +114,7 @@ buttonAddBook.addEventListener('click', async event =>{
             failMessageList.push(failMessage);
             failCount++;
             
-            if(failCount===5){//om det misslyckas helt med att lägga in en ny bok händer detta
+            if(failCount===5){ // om det misslyckas helt med att lägga in en ny bok händer detta
                 buttonAddBook.innerHTML="Failed, try again";
               
             }
@@ -122,144 +122,69 @@ buttonAddBook.addEventListener('click', async event =>{
         }   
         
         
-    } //slut loop
+    }//slut loop
    
-    createFail(failMessageList)//Skriver ut felmeddelanden från addBook på sidan
+    createFail(failMessageList) // Skriver ut felmeddelanden från addBook på sidan
    
-
     
-
 });
 
-// Modify book - button
-async function modifyBook(id, newDivTitle, newDivAuthor, newDivFail){ // title, author
-
-
-
-
-
-
-
-}
-
 // Modify book - save button
-async function saveModify(){
-    const urlModify = baseUrl + "?key=" + ourKey + "&op=update&id=" + id + "&title=" + newTitle.value + "&author=" + newAuthor.value;
+async function modifyBook(){
+ /*   const urlModify = baseUrl + '?key=' + ourKey + '&op=update&id=' + id + '&title=' + newTitle.value + '&author=' + newAuthor.value;  */
+
+    // create input
+    // create button ok/save
+    //remove child title/author
+    //append child
+
+
+    console.log('I modify funktionen', inputAuthor.value, inputTitle.value);
+    
 }
 
-// Delete book
-async function deleteBook(id,divImage){
+// Modify book
+async function modifyBook(title, author, id, saveButton, parent, modifyButton)
+{
+    const urlModify = baseUrl + "?key=" + ourKey + "&op=update&id=" + id + "&title=" + title + "&author=" + author;
 
-    const urlDelete = baseUrl + "?key=" + ourKey + "&op=delete&id=" + id; // skicka med id
-    let failMessageList=[];//Listan där felmeddelanden hamnar
-    fail.innerHTML="";//tar bort allt innehåll i ul/fail, både text OCH li-tagg  
-    countFail=0;
-    for (let i=0; i<5; i++){
-    const response = await fetch(urlDelete);
-    const data = await response.json();
-    console.log('Response från server när vi deletear', data);
-    console.log("Statusen är: ", data.status);
-    let bookDiv=document.querySelector(".book")
-        if (data.status==="success"){
-            bookList.removeChild(bookDiv)
-            break;
-        }
-        else{
-            let failMessage=data.message;
-            failMessageList.push(failMessage)
-            countFail++
-            if(countFail===5){
-                newDivFail.className = "fail-messdelete";
-                newDivFail.innerHTML = "Failed to remove book";
-            }
+        let failMessageList=[];
+        fail.innerHTML="";
+        let failCount=0;
+        
+        for(let i=0; i<5; i++){
             
-
-        }
-    }//slut for loop
+            const response = await fetch (urlModify);
+            const data = await response.json();
+            console.log('respone fråns erver save button', data);
+            console.log(data.status);
     
-    createFail(failMessageList);
-    
-}//slut deletebook
+            if (data.status==="success"){
 
-function createNewDivImage(id, bookDiv, title, author){
-    
-    let newDivImage=document.createElement("div");
-    newDivImage.className="book-image";
-    let newDivFail=document.createElement("div");
-    newDivImage.appendChild(newDivFail);
-    let modifyElem=createNewButtonModify(title, author);
-    modifyElem.addEventListener('click', event =>{
-        console.log("Klick i modify knappen");
-        modifyBook(id, newDivFail);
-    });
-    newDivImage.appendChild(modifyElem);
-
-
-    let deleteElem=createNewButtonDelete(bookDiv);
-    deleteElem.addEventListener("click", async event=>{
-       deleteBook(id,newDivImage)
-       console.log("Inne i addeventlistener på delete");
+                console.log('inne i if success');
+                parent.removeChild(saveButton);
+                modifyButton.disabled=false;
+ 
+                break;
+            }
+            else {
+                console.log('Misslyckades att save');
+                let failMessage=data.message;
+                failMessageList.push(failMessage);
+                failCount++;
+                
+                if(failCount===5){//om det misslyckas helt med att lägga in en ny bok händer detta
+                    saveButton.innerHTML="Failed, try again";
+                  
+                } //slut if failcount sats
+            }  //slut else 
+        }//slut forloop
        
-    })
-    newDivImage.appendChild(deleteElem);
-    return newDivImage;
+        createFail(failMessageList);
+
 };
-
-function createNewButtonDelete(id){
-    let newButtonDelete=document.createElement("button");
-    newButtonDelete.className="book-delete";
-    // newButtonDelete.addEventListener("click", async event=>{
-    //     bookList.removeChild(bookDiv)
-    // })
     
-    let BookId=id;//behövs denna?
-    return newButtonDelete
-}
-
-
-function createNewButtonModify(title, author){
-    let newButtonModify=document.createElement("button");
-    newButtonModify.className="book-modify";
-    console.log('vår title och autor; ', title, author);
-    return newButtonModify
-}
-
-function createNewDivTitle(title){
-
-    let newDivTitle=document.createElement("div");
-    newDivTitle.className="book-title";
-    newDivTitle.innerText="Title: " + title;
-    return newDivTitle;
-}
-
-function createNewDivAuthor(author){
-    
-    let newDivAuthor=document.createElement("div");
-    newDivAuthor.className="book-author";
-    newDivAuthor.innerText="Author: " + author;
-    return newDivAuthor;    
-}
-
-//Den här funktionen skapar hela boken inkl alla tre element som ligger i och appendar den till book-list
-
-function createBook(title, author,id){
-    let bookDiv=document.createElement("div")
-    let idNumber=id;
-    bookDiv.className="book";
-    bookDiv.id=idNumber;
-    let imageElem=createNewDivImage(id, bookDiv, title, author);
-    let titleElem = createNewDivTitle(title);
-    let authorElem=createNewDivAuthor(author);
-    //här skapas alla de tre elementen som ska ligga i 
-    bookDiv.appendChild(imageElem);
-    bookDiv.appendChild(titleElem);
-    bookDiv.appendChild(authorElem);
-    
-    bookList.appendChild(bookDiv);
-   
-}
-
-//Den här funktionen skapar li med felmeddelande
+// Fail message
 function createFail(failMessage){
     for (i=0; i<failMessage.length; i++){
         let newP=document.createElement("li");
@@ -267,9 +192,127 @@ function createFail(failMessage){
         newP.innerHTML=failMessage[i];
         fail.appendChild(newP);
     }
-   }//slut createFail function
+} 
+
+   
+   //Delete book
+   async function deleteBook(id, deleteButton, divBook){
+
+    const urlDelete = baseUrl + "?key=" + ourKey + "&op=delete&id=" + id; // skicka med id
+    let failMessageList=[];//Listan där felmeddelanden hamnar
+    fail.innerHTML="";//tar bort allt innehåll i ul/fail, både text OCH li-tagg  
+    countFail=0;
+    
+    for (let i=0; i<5; i++){
+        const response = await fetch(urlDelete);
+        const data = await response.json();
+        console.log('Response från server när vi deletear', data);
+        console.log("Statusen är: ", data.status);
+        let bookDiv=document.querySelector(".book")
+            if (data.status==="success"){
+                bookList.removeChild(divBook)
+                break;
+            }
+            else{
+                let failMessage=data.message;
+                failMessageList.push(failMessage)
+                countFail++
+                
+                if(countFail===5){
+                    //TODO fixa så att det kommer ett felmeddelande om alla fem försök failar.
+                   deleteButton.className="book-delete-fail";
+                   deleteButton.innerHTML="Try again!"
+                   
+                }
+                
+
+            }
+    }//slut for loop
+    
+    createFail(failMessageList);
+    
+}
+
+//CreateBook
+function createBook(title, author,id){
+   
+    //Skapar parent/book
+    let bookDiv=document.createElement("div")
+    let idNumber=id;
+    bookDiv.className="book";
+    bookDiv.id=idNumber;
+
+    //Skapar Title elementet
+    let newDivTitle=document.createElement("div")
+    newDivTitle.className="book-title";
+    newDivTitle.innerText=title;
+
+    //SKapar author element
+    let newDivAuthor=document.createElement("div");
+    newDivAuthor.className="book-author";
+    newDivAuthor.innerText=author;
+
+    //skapar image
+    let newDivImage=document.createElement("div");
+    newDivImage.className="book-image";
+
+    //skapar modify button
+    let newButtonModify=document.createElement("button");
+    newButtonModify.className="book-modify";
+    newButtonModify.addEventListener("click", async event=>{
+    
+        newButtonModify.disabled=true;
+    
+        //Savebutton skapas här efter man tryckt på modifyButton
+        let saveButton = document.createElement('button');
+        saveButton.className = 'saveButton';
+        saveButton.innerHTML = "Save";
+    
+        saveButton.addEventListener('click', event =>{
+            let changedTitle=newDivTitle.innerHTML;
+            let changedAuthor=newDivAuthor.innerHTML;
+            modifyBook(changedTitle, changedAuthor, id, saveButton, bookDiv,newButtonModify);
+            console.log('click savebutton');
+            newDivTitle.contentEditable="false";
+            newDivAuthor.contentEditable="false";
+
+        });//slut saveButton addeventlistener
+    
+        bookDiv.appendChild(saveButton);
+    })//slut newbuttonModify adeventlistener
+
+    //skapar focus på titel och författare när klickar på modify
+    newButtonModify.addEventListener("focus", event=>{
+  
+        newDivTitle.contentEditable="true";
+        newDivAuthor.contentEditable="true";
+        newDivTitle.focus();
+       
+    })
+
+    //skapar deletebutton med addeventlistner
+    let newButtonDelete=document.createElement("button");
+    newButtonDelete.className="book-delete";
+    newButtonDelete.addEventListener("click", async event=>{
+       deleteBook(id, newButtonDelete,bookDiv);
+       
+    })
+
+    //Alla olika delar läggs ihop
+    newDivImage.appendChild(newButtonModify);
+    newDivImage.appendChild(newButtonDelete);
+    bookDiv.appendChild(newDivImage);
+    bookDiv.appendChild(newDivTitle);
+    bookDiv.appendChild(newDivAuthor);
+    bookList.appendChild(bookDiv);
+
+}
+
   
 
 
 
 }); // Load
+
+
+
