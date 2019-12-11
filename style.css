@@ -83,7 +83,6 @@
 
 /* Login */ 
 .login{ 
-    display: inline-block; 
     padding: 2em 2em 2em;
 }
 .login input{
@@ -301,4 +300,8 @@ footer{
     .container-fail{
         grid-column: 1/11;
     }
+    .login input{
+        font-size: 1em;
+        text-align: center;
+     }
 }
