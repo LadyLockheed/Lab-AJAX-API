@@ -326,7 +326,7 @@ function createBook(title, author,id){
     let newButtonDelete=document.createElement("button");
     newButtonDelete.className="book-delete";
     newButtonDelete.addEventListener("click", async event=>{
-       deleteBook(id)
+       deleteBook(id);
        
     })
 
