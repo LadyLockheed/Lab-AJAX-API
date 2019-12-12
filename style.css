@@ -16,10 +16,10 @@
     padding: 1em 1em 1em;
 }
 .container{
-    margin-top: 1.5em;
+    margin-top: 1em;
     display: grid;
     grid-template-columns: repeat(10, 1fr);
-    gap: 1.5em;
+    gap: 1em;
 }
 .container-paragraph{
     background-color: cadetblue;
@@ -27,11 +27,11 @@
 }
 .container-key{
     background-color: cadetblue;
-    grid-column: 5/8;
+    grid-column: 5/7;
 }
 .container-fail{
     background-color: cadetblue;
-    grid-column: 8/11;
+    grid-column: 7/11;
 
 }
 
@@ -44,11 +44,9 @@
     line-height: 1.5em; 
     padding: 2em 3em 2em;
 }
-
-.form-paragraph >span{
-    font-weight:bold;
+.form-paragraph > span{
+    font-weight: bold;
 }
-
 #welcome-text{
     font-family:'Caveat', 'Times New Roman', Times, serif;
     font-size: 1.5em;
@@ -121,7 +119,7 @@
     padding: 2em;
     font-size: 1em;
     font-family: sans-serif;
-    font-weight: lighter;
+    font-weight: bold;
 }
 .failMessage{
     text-align: center;

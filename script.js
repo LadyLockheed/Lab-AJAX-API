@@ -266,8 +266,8 @@ function createBook(title, author,id){
     // Skapar focus på titel och författare när klickar på modify
     newButtonModify.addEventListener("focus", event=>{
   
-        newDivTitle.contentEditable="true";
-        newDivAuthor.contentEditable="true";
+        newDivTitle.contentEditable = "true";
+        newDivAuthor.contentEditable = "true";
         newDivTitle.focus();  
     });
 
